@@ -9,7 +9,7 @@
     <meta name="author" content="Lan Anh Do">
     <meta name="description" content="TechConnect - a website for buying and selling tech">
 
-    <title>Ridr</title>
+    <title>TechConnect</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
