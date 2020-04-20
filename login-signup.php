@@ -61,7 +61,42 @@
                     <h3>Login</h3>
                     <?php function error($message){?>
                       <span id="email-msg-login" class="error"><?php echo $message;?> </span>
-                    <?php }?>
+                    <?php }
+
+                    require('connectdb.php');
+
+                    global $db;
+
+                    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                        $email = htmlspecialchars($_POST['emailLogin']);
+                        $password = htmlspecialchars($_POST['passwordLogin']);
+
+                        $query = "Select * FROM user_pass where email=:email";
+                        $statement = $db->prepare($query);
+                        $statement->bindValue(':email', $email);
+                        $statement->execute();
+
+                        if ($statement->rowCount() > 0) {
+                            $tuple = $statement->fetch();
+                            $pass = $tuple[1];
+
+                            if (password_verify($password, $pass)) {
+                                // echo "true";
+                                session_start();
+                                $_SESSION['email'] = $email;
+                                $_SESSION['first_name'] = $tuple[2];
+                                $_SESSION['last_name'] = $tuple[3];
+                                //header("Location: home.php");
+                            } else {
+                                error("Incorrect password.");
+                            }
+                        } else  error("Email does not have an account.");
+
+
+                        $statement->closeCursor();
+                    }
+
+                    ?>
                     <input type="email" name="emailLogin" placeholder="Email" class="inputP" id="emailLogin" autofocus required><br />
                     <span id="pass-msg-login" class="error"></span>
                     <input type="password" name="passwordLogin" placeholder="Password" class="inputP" id="passwordLogin" required><br />
@@ -83,40 +118,5 @@
     crossorigin="anonymous">
 
 </script>
-<script src="JS/login-signup.js"></script>
+<script src="../../../Users/Jason/Dropbox/CS4750/techconnect/JS/login-signup.js"></script>
 </html>
-
-<?php
-require('connectdb.php');
-
-global $db;
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $email = htmlspecialchars($_POST['emailLogin']);
-    $password = htmlspecialchars($_POST['passwordLogin']);
-
-    $query = "Select * FROM user_pass where email=:email";
-    $statement = $db->prepare($query);
-    $statement->bindValue(':email', $email);
-    $statement->execute();
-
-    if ($statement->rowCount() > 0) {
-        $tuple = $statement->fetch();
-        $pass = $tuple[1];
-
-        if (password_verify($password, $pass)) {
-            // echo "true";
-            session_start();
-            $_SESSION['email'] = $email;
-            $_SESSION['first_name'] = $tuple[2];
-            $_SESSION['last_name'] = $tuple[3];
-            //header("Location: home.php");
-        } else {
-            error( "Incorrect password.");
-        }
-    } else  error( "Email does not have an account.");
-
-
-    $statement->closeCursor();
-}
-?>
