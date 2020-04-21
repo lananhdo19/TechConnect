@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 20, 2020 at 10:03 PM
+-- Generation Time: Apr 22, 2020 at 01:50 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -29,6 +29,11 @@ DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `all_listings` (IN `username` VARCHAR(40))  SELECT * FROM Listing NATURAL JOIN Lists
 Where Username = username$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `newAccount` (IN `email` VARCHAR(100), IN `password` VARCHAR(255), IN `username` VARCHAR(100))  BEGIN
+INSERT INTO user_pass VALUES (email, password);
+INSERT INTO profile VALUES (username, email);
+END$$
+
 DELIMITER ;
 
 -- --------------------------------------------------------
@@ -42,16 +47,6 @@ CREATE TABLE `card_info` (
   `type` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `card_info`
---
-
-INSERT INTO `card_info` (`card_number`, `type`) VALUES
-('532d4e37b1f940591970589fd61fae54', 'credit'),
-('a2b0b5d4d3015790182ba43527123434', 'credit'),
-('c287bf76192b845a5e25167abc784500', 'debit'),
-('e57ec13f658409dc225a5d65ca96717c', 'debit');
-
 -- --------------------------------------------------------
 
 --
@@ -62,16 +57,6 @@ CREATE TABLE `credit_debit` (
   `pay_id` int(11) NOT NULL,
   `card_number` varchar(40) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `credit_debit`
---
-
-INSERT INTO `credit_debit` (`pay_id`, `card_number`) VALUES
-(100003, '532d4e37b1f940591970589fd61fae54'),
-(100004, 'a2b0b5d4d3015790182ba43527123434'),
-(100001, 'c287bf76192b845a5e25167abc784500'),
-(100002, 'e57ec13f658409dc225a5d65ca96717c');
 
 -- --------------------------------------------------------
 
@@ -84,16 +69,6 @@ CREATE TABLE `item_score` (
   `Username` varchar(40) NOT NULL,
   `Score` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `item_score`
---
-
-INSERT INTO `item_score` (`Item_ID`, `Username`, `Score`) VALUES
-(1, 'jc4rn', 5),
-(2, 'ld9hu', 9),
-(3, 'zh2yn', 7),
-(4, 'zh2yn', 10);
 
 -- --------------------------------------------------------
 
@@ -110,17 +85,6 @@ CREATE TABLE `listing` (
   `description` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `listing`
---
-
-INSERT INTO `listing` (`item_id`, `image`, `brand`, `item_condition`, `type`, `description`) VALUES
-(1, 'laptop.jpg', 'apple', 'new', 'laptop', 'MacBook Pro 2013'),
-(2, 'bose_heaphone.jpg', 'bose', 'good', 'headphones', 'Noise-cancelling, over the ear headphones'),
-(3, 'tv.jpg', 'samsung', 'fair', 'tv', 'Used for two years, fair condition, black, 40 inch'),
-(4, 'tablet.jpg', 'apple', 'good', 'tablet', 'ipad mini, 7.9 inch retina display'),
-(5, 'dell_comp.jpg', 'dell', 'excellent', 'desktop', 'dell inspiron, 7th generation, windows 10');
-
 -- --------------------------------------------------------
 
 --
@@ -134,17 +98,6 @@ CREATE TABLE `listing_brand` (
   `price` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `listing_brand`
---
-
-INSERT INTO `listing_brand` (`brand`, `item_condition`, `type`, `price`) VALUES
-('apple', 'good', 'tablet', 300),
-('apple', 'new', 'laptop', 1000),
-('bose', 'good', 'headphones', 85),
-('dell', 'excellent', 'desktop', 450),
-('samsung', 'fair', 'tv', 150);
-
 -- --------------------------------------------------------
 
 --
@@ -156,16 +109,6 @@ CREATE TABLE `lists` (
   `Username` varchar(40) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `lists`
---
-
-INSERT INTO `lists` (`item_id`, `Username`) VALUES
-(4, 'hew5fz'),
-(1, 'jc4rn'),
-(2, 'ld9hu'),
-(3, 'zh2yn');
-
 -- --------------------------------------------------------
 
 --
@@ -176,16 +119,6 @@ CREATE TABLE `makes` (
   `username` varchar(40) DEFAULT NULL,
   `transaction_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `makes`
---
-
-INSERT INTO `makes` (`username`, `transaction_id`) VALUES
-('hew5fz', 1001),
-('jc4rn', 1003),
-('jc4rn', 1004),
-('zh2yn', 1002);
 
 -- --------------------------------------------------------
 
@@ -199,16 +132,6 @@ CREATE TABLE `messages` (
   `text` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `messages`
---
-
-INSERT INTO `messages` (`username_1`, `username_2`, `text`) VALUES
-('hew5fz', 'jc4rn', 'Test message from hew5fz to jc4rn'),
-('jc4rn', 'ld9hu', 'Test message from jc4rn to ld9hu'),
-('ld9hu', 'zh2yn', 'Test message from ld9hu to zh2yn'),
-('zh2yn', 'hew5fz', 'Test message from zh2yn to hew5fz');
-
 -- --------------------------------------------------------
 
 --
@@ -220,16 +143,6 @@ CREATE TABLE `payment_stored` (
   `username` varchar(40) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `payment_stored`
---
-
-INSERT INTO `payment_stored` (`pay_ID`, `username`) VALUES
-(100004, 'hew5fz'),
-(100001, 'jc4rn'),
-(100002, 'ld9hu'),
-(100003, 'zh2yn');
-
 -- --------------------------------------------------------
 
 --
@@ -237,19 +150,9 @@ INSERT INTO `payment_stored` (`pay_ID`, `username`) VALUES
 --
 
 CREATE TABLE `profile` (
-  `Username` varchar(40) NOT NULL,
-  `email` varchar(40) DEFAULT NULL
+  `Username` varchar(100) NOT NULL,
+  `email` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `profile`
---
-
-INSERT INTO `profile` (`Username`, `email`) VALUES
-('hew5fz', 'hew5fz@virginia.edu'),
-('jc4rn', 'jc4rn@virginia.edu'),
-('ld9hu', 'ld9hu@virginia.edu'),
-('zh2yn', 'zh2yn@virginia.edu');
 
 -- --------------------------------------------------------
 
@@ -264,16 +167,6 @@ CREATE TABLE `transaction` (
   `date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `transaction`
---
-
-INSERT INTO `transaction` (`transaction_id`, `item_id`, `payment_info`, `date`) VALUES
-(1001, 1, 100004, '2019-01-05 00:00:00'),
-(1002, 2, 100003, '2019-03-08 00:00:00'),
-(1003, 3, 100001, '2019-11-15 00:00:00'),
-(1004, 4, 100001, '2019-12-01 00:00:00');
-
 -- --------------------------------------------------------
 
 --
@@ -281,19 +174,9 @@ INSERT INTO `transaction` (`transaction_id`, `item_id`, `payment_info`, `date`) 
 --
 
 CREATE TABLE `user_pass` (
-  `email` varchar(40) NOT NULL,
-  `password` varchar(10) DEFAULT NULL
+  `email` varchar(100) NOT NULL,
+  `password` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `user_pass`
---
-
-INSERT INTO `user_pass` (`email`, `password`) VALUES
-('hew5fz@virginia.edu', '*5B14D5E4E'),
-('jc4rn@virginia.edu', '*45F379C00'),
-('ld9hu@virginia.edu', '*1C04696A2'),
-('zh2yn@virginia.edu', '*698EA3ACE');
 
 --
 -- Indexes for dumped tables
@@ -324,7 +207,6 @@ ALTER TABLE `item_score`
 --
 ALTER TABLE `listing`
   ADD PRIMARY KEY (`item_id`),
-  ADD UNIQUE KEY `unique_image` (`image`),
   ADD KEY `brand` (`brand`,`item_condition`,`type`);
 
 --

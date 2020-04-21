@@ -7,9 +7,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     global $db;
 
-    $user = htmlspecialchars($_POST['email']);
+    $email = htmlspecialchars($_POST['email']);
 
-    $query = "SELECT * FROM user WHERE email= '" . $user . "'" ;
+    $query = "SELECT * FROM user_pass WHERE email= '" . $email . "'" ;
     $statement = $db->prepare($query);
     $statement->execute();
 

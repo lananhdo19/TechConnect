@@ -35,68 +35,72 @@
 
             <div class="containerLoginSignUp">
                 <!-- Sign Up Form Default-->
-                <!--<form action="" method="post">
+                <!--  <form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST"> -->
                 <div class="signup-form form-group">
                     <h3>Create an Account</h3>
                     <span id="name-msg" class="error"></span>
-                    <div class="row">
-                        <div class="col-6">
-                            <input type="text" name="firstName" placeholder="First Name" class="inputP" id="firstName" autofocus required><br />
-                        </div>
-                        <div class="col-6">
-                            <input type="text" name="lastName" placeholder="Last Name" class="inputP" id="lastName" required><br />
-                        </div>
-                    </div>
+                    <!--<div class="row">
+                       <div class="col-6">
+                           <input type="text" placeholder="First Name" class="inputP" id="firstName" autofocus required><br />
+                       </div>
+                       <div class="col-6">
+                           <input type="text" placeholder="Last Name" class="inputP" id="lastName" required><br />
+                       </div>
+                   </div> -->
+                   <span id="email-msg" class="error"></span>
+                   <input type="text" placeholder="Email" class="inputP" id="emailSign" required><br />
+                   <span id="password-msg" class="error"></span>
+                   <input type="password" placeholder="Password" class="inputP" id="passwordSign" required><br />
+                   <button class="btn btn-primary" name="action" value="signUp" id="signUpButton" >Sign Up</button>
+                   <p>Already have an account? <a class="loginTab">Login</a></p>
+               </div>
+               <!--   </form> -->
 
-                    <input type="email" name="emailSign" placeholder="Email" class="inputP" id="emailSign" required><br />
-                    <span id="password-msg" class="error"></span>
-                    <input type="password" name="passwordSign" placeholder="Password" class="inputP" id="passwordSign" required><br />
-                    <button class="btn btn-primary" name="action" value="signUp" id="signUpButton" >Sign Up</button>
-                    <p>Already have an account? <a class="loginTab">Login</a></p>
-                </div>
-               </form> -->
-                <!-- Login Form -->
-                <form action="<?php $_SERVER['PHP_SELF'] ?>" method="POST">
+                  <!-- Login Form -->
+                <form action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
                 <div class="login-form form-group">
                     <h3>Login</h3>
                     <?php function error($message){?>
                       <span id="email-msg-login" class="error"><?php echo $message;?> </span>
                     <?php }
-
                     require('connectdb.php');
 
                     global $db;
-
                     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                        $email = htmlspecialchars($_POST['emailLogin']);
-                        $password = htmlspecialchars($_POST['passwordLogin']);
+                        if (isset($_POST['action']) && $_POST['action'] == 'login' ){
+                            //echo "login";
+                            $email = $_POST['emailLogin'];
+                            $password = $_POST['passwordLogin'];
 
-                        $query = "Select * FROM user_pass where email=:email";
-                        $statement = $db->prepare($query);
-                        $statement->bindValue(':email', $email);
-                        $statement->execute();
+                            $query = "Select * FROM user_pass where email=:email";
+                            $statement = $db->prepare($query);
+                            $statement->bindValue(':email', $email);
+                            $statement->execute();
 
-                        if ($statement->rowCount() > 0) {
-                            $tuple = $statement->fetch();
-                            $pass = $tuple[1];
+                            if ($statement->rowCount() > 0) {
+                                $tuple = $statement->fetch();
+                                $pass = $tuple[1];
 
-                            if (password_verify($password, $pass)) {
-                                // echo "true";
-                                session_start();
-                                $_SESSION['email'] = $email;
-                                $_SESSION['first_name'] = $tuple[2];
-                                $_SESSION['last_name'] = $tuple[3];
-                                //header("Location: home.php");
-                            } else {
-                                error("Incorrect password.");
-                            }
-                        } else  error("Email does not have an account.");
+                                if (password_verify($password, $pass)) {
+                                    // echo "true";
+                                    session_start();
+                                    $_SESSION['email'] = $email;
+                                    $_SESSION['user'] = strstr($email, '@', true);
+                                   // $_SESSION['first_name'] = $tuple[2];
+                                   // $_SESSION['last_name'] = $tuple[3];
+                                    header("Location: home.php");
+                                } else {
+                                    error("Incorrect password.");
+                                }
+                            } else  error("Email does not have an account.");
 
 
-                        $statement->closeCursor();
+                            $statement->closeCursor();
+                        }
                     }
 
                     ?>
+
                     <input type="email" name="emailLogin" placeholder="Email" class="inputP" id="emailLogin" autofocus required><br />
                     <span id="pass-msg-login" class="error"></span>
                     <input type="password" name="passwordLogin" placeholder="Password" class="inputP" id="passwordLogin" required><br />
@@ -118,5 +122,5 @@
     crossorigin="anonymous">
 
 </script>
-<script src="../../../Users/Jason/Dropbox/CS4750/techconnect/JS/login-signup.js"></script>
+<script src="JS/login-signup.js"></script>
 </html>

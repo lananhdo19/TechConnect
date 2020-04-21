@@ -18,7 +18,7 @@ $(document).ready(function() {
 
 
 //Important page elements
-
+/*
 //first name signup
 let firstName = document.getElementById("firstName");
 
@@ -29,32 +29,41 @@ firstName.addEventListener('focus',function(){
 //last name sign up
 let lastName = document.getElementById("lastName");
 
+
 lastName.addEventListener('focus',function(){
         document.getElementById("name-msg").textContent = "";
     }, false);
 
+ */
+
 //email sign up
 let email_sign = document.getElementById("emailSign");
 
+
 email_sign.addEventListener('focus',function(){
     document.getElementById("email-msg").textContent = "";
+    document.getElementById("name-msg").textContent = "";
 }, false);
 
 //password sign up
 let pass_sign = document.getElementById("passwordSign");
+
 
 pass_sign.addEventListener('focus',function(){
     document.getElementById("password-msg").textContent = "";
 }, false);
 
 
+
+
 //email login
 let email_login = document.getElementById("emailLogin");
-
+/*
 email_login.addEventListener('focus',function(){
     document.getElementById("email-msg-login").textContent = "";
 },false);
 
+*/
 //password login
 let pass_login = document.getElementById("passwordLogin");
 
@@ -66,6 +75,8 @@ pass_login.addEventListener('focus',function(){
 
 
 
+/*
+
 //login button
 let login_btn = document.getElementById("loginButton");
 login_btn.addEventListener('click', function(){
@@ -76,18 +87,16 @@ login_btn.addEventListener('click', function(){
 
 
 
-
+*/
 
 
 
 //signup button
 let signup_btn = document.getElementById("signUpButton");
 signup_btn.addEventListener('click', function(){
-   if (checkEmailSign() && checkName() && checkPassSign())
-   {
+   if (checkEmailSign() && /*checkName() &&*/ checkPassSign()){
        checkExistingAndCreate();
    }
-
 }, false)
 
 
@@ -151,24 +160,6 @@ function checkPassLogin(){
     return true;
 };
 
-
-//login function AJAX with PHP
-function login(){
-    let xhrAccount = new XMLHttpRequest();
-    xhrAccount.onload = function() {
-        if (xhrAccount.responseText == "true") {
-                window.location.href = "posts.php";
-        }else {
-                document.getElementById("email-msg-login").innerHTML = xhrAccount.responseText;
-            }
-        }
-
-    xhrAccount.open('POST', 'php/login.php', true);
-    xhrAccount.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhrAccount.send("email=" + email_login.value + "&password=" + pass_login.value);
-}
-
-
 function checkExistingAndCreate(){
     let xhrAccount = new XMLHttpRequest();
     xhrAccount.onload = function() {
@@ -181,7 +172,7 @@ function checkExistingAndCreate(){
         }
     }
 
-    xhrAccount.open('POST', 'php/checkExistingUser.php', true);
+    xhrAccount.open('POST', 'checkExistingUser.php', true);
     xhrAccount.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhrAccount.send("email=" + email_sign.value + "&password=" + pass_sign.value);
 }
@@ -192,13 +183,15 @@ function createAccount(){
     let xhrAccount = new XMLHttpRequest();
     xhrAccount.onload = function() {
         if (xhrAccount.status == 200) {
-                window.location.href = "posts.php";
+            window.location.href = "home.php";
         }
     }
 
-    xhrAccount.open('POST', 'php/createAccount.php', true);
+    xhrAccount.open('POST', 'createAccount.php', true);
     xhrAccount.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhrAccount.send("email=" + email_sign.value + "&password=" + pass_sign.value
-                 + "&first_name=" + firstName.value  + "&last_name=" + lastName.value
+        /*+ "&first_name=" + firstName.value  + "&last_name=" + lastName.value
+
+         */
     );
 }

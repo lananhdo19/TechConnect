@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 20, 2020 at 09:54 PM
+-- Generation Time: Apr 22, 2020 at 01:58 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -28,6 +28,11 @@ DELIMITER $$
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `all_listings` (IN `username` VARCHAR(40))  SELECT * FROM Listing NATURAL JOIN Lists
 Where Username = username$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `newAccount` (IN `email` VARCHAR(100), IN `password` VARCHAR(255), IN `username` VARCHAR(100))  BEGIN
+INSERT INTO user_pass VALUES (email, password);
+INSERT INTO profile VALUES (username, email);
+END$$
 
 DELIMITER ;
 
@@ -237,8 +242,8 @@ INSERT INTO `payment_stored` (`pay_ID`, `username`) VALUES
 --
 
 CREATE TABLE `profile` (
-  `Username` varchar(40) NOT NULL,
-  `email` varchar(40) DEFAULT NULL
+  `Username` varchar(100) NOT NULL,
+  `email` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -281,8 +286,8 @@ INSERT INTO `transaction` (`transaction_id`, `item_id`, `payment_info`, `date`) 
 --
 
 CREATE TABLE `user_pass` (
-  `email` varchar(40) NOT NULL,
-  `password` varchar(10) DEFAULT NULL
+  `email` varchar(100) NOT NULL,
+  `password` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -290,10 +295,10 @@ CREATE TABLE `user_pass` (
 --
 
 INSERT INTO `user_pass` (`email`, `password`) VALUES
-('hew5fz@virginia.edu', '*5B14D5E4E'),
-('jc4rn@virginia.edu', '*45F379C00'),
-('ld9hu@virginia.edu', '*1C04696A2'),
-('zh2yn@virginia.edu', '*698EA3ACE');
+('hew5fz@virginia.edu', '$2y$10$1N5XGtsdoDZBeQK3/5vrxuf/yZ0XZJ/jXfLfQfXwxy0dJWrCSZtIC'),
+('jc4rn@virginia.edu', '$2y$10$0LNmxCdxshq9k/pDlllLDO2HNFnhvUrvGLD2DTosfx3rb8RS5KPR2'),
+('ld9hu@virginia.edu', '$2y$10$XNUr/zX.5HSc73LyPrw35epilvqzN304/OsHKsKDAK1vY5NUMRdfS'),
+('zh2yn@virginia.edu', '$2y$10$NZBOcmuij9hTEUqfvsELCeMgaukWIzFJas6BJxW.tBZ9KeWR5a3D2');
 
 --
 -- Indexes for dumped tables
@@ -324,7 +329,6 @@ ALTER TABLE `item_score`
 --
 ALTER TABLE `listing`
   ADD PRIMARY KEY (`item_id`),
-  ADD UNIQUE KEY `unique_image` (`image`),
   ADD KEY `brand` (`brand`,`item_condition`,`type`);
 
 --
