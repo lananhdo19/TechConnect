@@ -1,0 +1,67 @@
+.column {
+    float: left;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.left {
+    width: 30%;
+    text-align: center;
+}
+
+.right {
+    vertical-align: center;
+    width: 70%;
+    padding-right: 25px;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+#successMessage {
+    display: none;
+}
+
+.profilePic {
+    width: 250px;
+    height: 400px;
+    border: 3px solid #0BC4E2;
+}
+
+#editProfile, #createListing {
+    color: white;
+    background-color: #0BC4E2;
+    border-radius: 10px;
+    margin: 5px;
+    padding: 5px 15px;
+}
+
+#createListing {
+    float: right;
+}
+
+.tabs {
+    margin-left: 5%;
+    padding-top: 1%;
+    margin-right: 5%;
+    border-bottom-style: solid;
+    border-color: #111111;
+    color: #ffff;
+}
+
+.tabs button {
+    background: #0BC4E2;
+    border-bottom: 0px;
+    border-style: none;
+    font-size: 20px;
+    padding: 3px 15px;
+    margin: 0px 3px;
+}
+
+.invalid-feedback {
+    display: none;
+    color: red;
+}
