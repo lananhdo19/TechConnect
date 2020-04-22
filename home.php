@@ -170,7 +170,7 @@
 
 <ul class="ulBottomNav">
   <li class="liBottomNav"><a class="active" href="#home">Home</a></li>
-  <li class="liBottomNav"><a href="#contact">About</a></li>
+  <li class="liBottomNav"><a href="about.php">About</a></li>
   <li class="liBottomNav"><a href="login-signup.php">Account</a></li>
   <li class="liBottomNav"><a href="login-signup.php">Sign Up</a></li>
   <li class="liBottomNav"><a onclick="sendMessage()" href="#home">Message</a></li>
