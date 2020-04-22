@@ -17,6 +17,8 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster">
 </head>
 
+
+
 </script>
 
 <!-- CSS Style Rules--> 
@@ -127,6 +129,7 @@
   display: none;
   position: fixed;
   margin:auto;
+  overflow:auto;
   top: 5;
   right:-10;
   left:-10;
@@ -134,11 +137,13 @@
   border: 3px solid #f1f1f1;
   z-index: 10;
   vertical-align: middle;
+  
 }
 
 .form-container {
   background-color: white;
   align:center;
+  overflow:auto;
 }
 
 .message{
@@ -205,41 +210,6 @@
 </div>
 <br>
 
-<div class="product-popup" id="prod-form">
-<div class="form-container" style="overflow-x:auto; align:center">
-<h4> Product Table </h4>
-    <table class="table table-striped table-bordered" style="background-color:white">
-      <tr>
-	  <th>Item ID</th>
-		<th>Type</th>
-		<th>Brand</th>
-        <th>Condition</th>
-        <th>Product Description</th>
-        <th>Price</th>
-        <th>Delete?</th>
-        <th>Purchase</th>
-      
-      <!--Some sort of for loop here that will go through the table and show the items on the screen -->
-        <td>
-          <form action="home.php" method="post">
-            <input type="submit" value="Delete" name="action" class="btn btn-danger" />             
-            <input type="hidden" name="item_id" value="<?php echo $task['item_id'] ?>" />
-          </form> 
-        </td>                        
-        <td>
-          <form action="home.php" method="post">
-            <input type="submit" value="Purchase" name="action" class="btn btn-primary" />      
-            <input type="hidden" name="item_id" value="<?php echo $task['item_id'] ?>" />
-          </form>
-        </td>                                
-      </tr>
-      <tr> 
-        <button type="submit" class="btn btn-secondary" onclick="sortProducts()"> Sort </button></tr>
-        <button type="submit" class="btn btn-danger" onclick="closeProducts()"> Close </button></tr>
-      
-    </table>
-    </div>
-</div>    
 
 <div class="message" id="message-user">
     <form action="home.php" class="form-container">
@@ -276,6 +246,98 @@
 
     }
 </script>
+
+
+<!--files needed for the database connection and functions -->
+
+<?php 
+require('connectdb.php'); 
+require('home-db.php');
+?>
+
+<?php 
+$msg = '';
+$task_to_update = '';
+
+if (!empty($_POST['db-btn']))
+{
+   if ($_POST['db-btn'] == "Sort")           {  sort_table();  }
+}
+if (!empty($_POST['action']))
+{
+  if ($_POST['action'] == "Delete")
+   {
+      if (!empty($_POST['item_id']) )
+         deleteTask($_POST['item_id']);
+   }
+}
+
+$tasks = getAllTasks();
+$prices = getPrice();
+?>
+
+<div class="product-popup" id="prod-form">
+<div class="form-container" style="overflow-x:auto; align:center">
+<h4> Product Table </h4>
+    <table class="table table-striped table-bordered" style="background-color:white">
+      <tr>
+        <th>Item ID</th>
+        <th>Type</th>
+        <th>Brand</th>
+        <th>Condition</th>
+        <th>Product Description</th>
+        <th>Price</th>
+        <th>Delete?</th>
+        <th>Purchase</th>
+      <tr> 
+        <button type="submit" class="btn btn-secondary" onclick="sortProducts()"> Sort </button></tr>
+        <button type="submit" class="btn btn-danger" onclick="closeProducts()"> Close </button></tr>
+      </tr>
+      </tr>
+      <!--Some sort of for loop here that will go through the table and show the items on the screen -->
+      <?php foreach ($tasks as $task): ?>
+        <tr>
+        <td>
+          <?php echo $task['item_id']; ?>
+        </td>
+        <td>
+          <?php echo $task['type']; ?>
+        </td>
+        <td>
+          <?php echo $task['brand']; ?>
+        </td>
+        <td>
+          <?php echo $task['item_condition']; ?>
+        </td>
+        <td>
+          <?php echo $task['description']; ?>
+        </td>
+        <td>
+          <?php 
+            if (($task['brand'] == $prices['brand']) and ($task['item_condition'] == $prices['item_condition']) and ($task['type'] == $prices['type']))
+            {
+              echo $prices['price'];
+            }
+            ?>
+        </td>
+        <td>
+          <form action="home.php" method="post">
+            <input type="submit" value="Delete" name="action" class="btn btn-danger" />             
+            <input type="hidden" name="item_id" value="<?php echo $task['item_id'] ?>" />
+          </form> 
+        </td>                        
+        <td>
+          <form action="home.php" method="post">
+            <input type="submit" value="Purchase" name="action" class="btn btn-primary" />      
+            <input type="hidden" name="item_id" value="<?php echo $task['item_id'] ?>" />
+          </form>
+        </td>                                
+      </tr>
+      
+      <?php endforeach; ?>
+    </table>
+    </div>
+</div>    
+
+
 </html>
-
-
