@@ -228,6 +228,13 @@ if (isset($_SESSION['user'])) {
         </div>
     </div>
 
+    <?php
+    if (! empty($_POST['create'])){
+        if(! empty($_POST['inputBrand']) & ! empty($_POST['inputCondition']) & ! empty($_POST['inputType']) & ! empty( $_POST['inputDescription']) & ! empty( $_POST['inputPrice']) ){
+            add_listing($_POST['inputBrand'], $_POST['inputCondition'], $_POST['inputType'], $_POST['inputDescription'], $_POST['inputPrice']);
+        }
+    }
+?>
 
     <!-- Create Listing Entry Modal -->
     <div class="modal fade" id="createListingModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -311,16 +318,16 @@ if (isset($_SESSION['user'])) {
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="inputItemPic">Upload Images</label>
                             <input type="file" class="form-control" id="inputItemPic">
-                        </div>
+                        </div> -->
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="resetModal()">Cancel
                     </button>
-                    <button type="submit" class="btn btn-primary" onclick="listingValidation()">Submit</button>
+                    <button type="submit" id ="create" class="btn btn-primary" onclick="listingValidation()">Submit</button>
                 </div>
             </div>
         </div>
