@@ -104,4 +104,17 @@ function sort_table()
 {
 
 }
+
+function createMessage($username_1, $username_2, $text)
+{
+	global $db;
+	$query = "INSERT INTO Messages (username_1, username_2, text) VALUES (:username_1, :username_2, :text)";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':username_1', $username_1);
+	$statement->bindValue(':username_2', $username_2);
+	$statement->bindValue(':text', $text);
+	$statement->execute(); 
+	
+	$statement->closeCursor();
+}
 ?>
