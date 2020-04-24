@@ -76,8 +76,6 @@ if (isset($_SESSION['user'])) {
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#listings">Listings</a></li>
             <li><a data-toggle="tab" href="#messages">Messages</a></li>
-            <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
-            <li><a data-toggle="tab" href="#menu3">Menu 3</a></li>
         </ul>
     </div>
     <div class="tab-content">
