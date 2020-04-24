@@ -27,6 +27,7 @@
 session_start();
 if (isset($_SESSION['user'])) {
     require('connectdb.php');
+    require('user-db.php');
     global $db;
     ?>
 
