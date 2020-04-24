@@ -121,8 +121,12 @@ function checkCard(){
     }
 
     if (card_type[1].checked){
-        card_type.value = "Credit";
+        card_type.value = "credit";
     }
+    else if (card_type[0].checked){
+        card_type.value = "debit";
+    }
+
     else card_msg.textContent ="";
     return true;
 }
@@ -176,7 +180,6 @@ function checkExistingAndCreate(){
         if (xhrAccount.status == 200) {
             if (xhrAccount.responseText != "Account Already Exists") {
                 createCard();
-                //createAccount();
             } else {
                 document.getElementById("name-msg").innerHTML = xhrAccount.responseText;
             }
@@ -202,7 +205,7 @@ function createCard(){
 
     xhrAccount.open('POST', 'createCard.php', true);
     xhrAccount.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhrAccount.send("cardNum=" + card_num.value + "&cardType=" + card_type.value);
+    xhrAccount.send("cardNum=" + card_num.value + "&cardType=" + card_type.value + "&user=" + email_sign.value.substr(0, email_sign.value.lastIndexOf("@")));
 }
 
 function createAccount(){

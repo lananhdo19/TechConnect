@@ -70,7 +70,6 @@
                     global $db;
                     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         if (isset($_POST['action']) && $_POST['action'] == 'login' ){
-                            //echo "login";
                             $email = $_POST['emailLogin'];
                             $password = $_POST['passwordLogin'];
 
@@ -84,12 +83,9 @@
                                 $pass = $tuple[1];
 
                                 if (password_verify($password, $pass)) {
-                                    // echo "true";
                                     session_start();
                                     $_SESSION['email'] = $email;
                                     $_SESSION['user'] = strstr($email, '@', true);
-                                   // $_SESSION['first_name'] = $tuple[2];
-                                   // $_SESSION['last_name'] = $tuple[3];
                                     header("Location: home.php");
                                 } else {
                                     error("Incorrect password.");
