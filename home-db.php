@@ -38,6 +38,26 @@ function getAllTasks()
 	return $results;
 }
 
+function getListing($listtype)
+{
+    global $db;
+    global $t;
+    $t = "listing";
+
+	$query = "SELECT * FROM $t where type = :listtype";
+	$statement = $db->prepare($query);
+	$statement->bindValue(":listtype", $listtype);
+	$statement->execute();
+	
+	// fetchAll() returns an array for all of the rows in the result set
+	$results = $statement->fetchAll();
+	
+	// closes the cursor and frees the connection to the server so other SQL statements may be issued
+	$statement->closecursor();
+	
+	return $results;
+}
+
 function getPrice() 
 {
     global $db;
@@ -83,5 +103,18 @@ function getTaskInfo_by_id($item_id)
 function sort_table()
 {
 
+}
+
+function createMessage($username_1, $username_2, $text)
+{
+	global $db;
+	$query = "INSERT INTO Messages (username_1, username_2, text) VALUES (:username_1, :username_2, :text)";
+	$statement = $db->prepare($query);
+	$statement->bindValue(':username_1', $username_1);
+	$statement->bindValue(':username_2', $username_2);
+	$statement->bindValue(':text', $text);
+	$statement->execute(); 
+	
+	$statement->closeCursor();
 }
 ?>

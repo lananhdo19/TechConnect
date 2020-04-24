@@ -24,16 +24,47 @@ let resetModal = () => {
 
 //updates the user info
 function updateUserInfo() {
-    document.getElementById("name").innerText = document.getElementById("inputUsername").value;
-    document.getElementById("age").innerText = document.getElementById("inputAge").value;
-    document.getElementById("favMovie").innerText = document.getElementById("inputFavMovie").value;
-    document.getElementById("favStar").innerText = document.getElementById("inputFavStar").value;
-    document.getElementById("userBlurb").innerText = document.getElementById("inputBlurb").value;
-    document.getElementById("closeUserModal").click();
-    document.getElementById("updateProfileSuccessMessage").style.display = "block";
-    setTimeout(function() {
-        document.getElementById("updateProfileSuccessMessage").style.display = "none";
-    }, 9000);
+    let username =  document.getElementById("inputUsername").value;
+    let email =  document.getElementById("inputEmail").value;
+    let oldPwd = document.getElementById("inputOldPassword").value;
+    let newPwd = document.getElementById("inputNewPassword").value;
+    let confirmNewPwd = document.getElementById("inputConfirmNewPassword").value;
+
+    let valid = true;
+
+    if (username == "") {
+        valid = false;
+        document.getElementById("usernameError").innerText = "Please enter an username";
+    }
+    else {
+        document.getElementById("usernameError").innerText = "";
+    }
+    if (email == "") {
+        valid = false;
+        document.getElementById("emailError").innerText = "Please enter a valid email";
+    }
+    else {
+        document.getElementById("emailError").innerText = "";
+    }
+    if(newPwd != "" || confirmNewPwd != "") {
+        if (oldPwd == "") {
+            valid = false;
+            document.getElementById("oldPasswordError").innerText = "Please enter your old password before creating a new password"
+        }
+        else {
+            document.getElementById("oldPasswordError").innerText = "";
+        }
+        if (newPwd != confirmNewPwd) {
+            valid = false;
+            document.getElementById("newPasswordError").innerText = "New password don't match";
+            document.getElementById("confirmNewPasswordError").innerText = "New password don't match";
+        }
+        else {
+            document.getElementById("newPasswordError").innerText = "";
+            document.getElementById("confirmNewPasswordError").innerText = "";
+        }
+    }
+    return valid;
 }
 
 // Makes sure all parts of movie is acceptable
