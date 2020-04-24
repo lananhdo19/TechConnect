@@ -103,6 +103,7 @@ if (isset($_SESSION['user'])) {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (!empty($_POST['action']) && $_POST['action'] == 'update') {
 
+            //update user_pass
             $query = "UPDATE user_pass SET email=:email WHERE email=:curEmail";
             $statement = $db->prepare($query);
             $statement->bindValue(':curEmail', $_SESSION['email']);
@@ -110,10 +111,42 @@ if (isset($_SESSION['user'])) {
             $statement->execute();
             $statement->closeCursor();
 
+            //update profile
             $query2 = "UPDATE profile SET Username=:username, email=:email WHERE email=:curEmail";
             $statement = $db->prepare($query2);
             $statement->bindValue(':curEmail', $_SESSION['email']);
             $statement->bindValue(':email', $_POST['email']);
+            $statement->bindValue(':username', $_POST['username']);
+            $statement->execute();
+            $statement->closeCursor();
+
+            //update messages
+            $query3 = "UPDATE messages SET username_1=:username WHERE username_1=:curUser";
+            $statement = $db->prepare($query3);
+            $statement->bindValue(':curUser', $_SESSION['user']);
+            $statement->bindValue(':username', $_POST['username']);
+            $statement->execute();
+            $statement->closeCursor();
+
+            $query4 = "UPDATE messages SET username_2=:username WHERE username_2=:curUser";
+            $statement = $db->prepare($query4);
+            $statement->bindValue(':curUser', $_SESSION['user']);
+            $statement->bindValue(':username', $_POST['username']);
+            $statement->execute();
+            $statement->closeCursor();
+
+            //update lists
+            $query5 = "UPDATE lists SET Username=:username WHERE Username=:curUser";
+            $statement = $db->prepare($query5);
+            $statement->bindValue(':curUser', $_SESSION['user']);
+            $statement->bindValue(':username', $_POST['username']);
+            $statement->execute();
+            $statement->closeCursor();
+
+            //update card_info
+            $query5 = "UPDATE card_info SET User=:username WHERE User=:curUser";
+            $statement = $db->prepare($query5);
+            $statement->bindValue(':curUser', $_SESSION['user']);
             $statement->bindValue(':username', $_POST['username']);
             $statement->execute();
             $statement->closeCursor();
@@ -125,20 +158,24 @@ if (isset($_SESSION['user'])) {
                 $statement->execute();
                 $results = $statement->fetchAll();
                 $statement->closeCursor();
-                if (password_verify($results[0]['password'], $_POST['oldPwd'])) {
+                if (password_verify($_POST['oldPwd'], $results[0]['password'])) {
                     $password = password_hash(htmlspecialchars($_POST['newPwd']), PASSWORD_BCRYPT);
                     $query3 = "UPDATE user_pass SET password=:password WHERE email=:curEmail";
                     $statement = $db->prepare($query3);
                     $statement->bindValue(':curEmail', $_SESSION['email']);
-                    $statement->bindValue(':password', $_POST['oldPwd']);
+                    $statement->bindValue(':password', $password);
                     $statement->execute();
                     $statement->closeCursor();
+                    echo "it works";
+                }
+                else {
+                    echo "no it doesnt work";
                 }
             }
 
-            //$_SESSION['user'] = $_POST['username'];
-            //$_SESSION['email'] = $_POST['email'];
-            //header('Location: user.php)
+            $_SESSION['user'] = $_POST['username'];
+            $_SESSION['email'] = $_POST['email'];
+            //header('Location: user.php');
         }
     }
     ?>
