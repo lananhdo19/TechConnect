@@ -51,14 +51,14 @@ if (isset($_SESSION['user'])) {
             <h3><b>Email:</b> <span id="email"><?php echo $_SESSION['email'] ?></span></h3>
             <h3><b>Payment Stored:</b> <span>
                     <?php
-                    $query = "SELECT * FROM profile NATURAL JOIN payment_stored NATURAL JOIN credit_debit WHERE Username=:user";
+                    $query = "SELECT * FROM card_info WHERE User=:user";
                     $statement = $db->prepare($query);
                     $statement->bindValue(':user', $_SESSION['user']);
                     $statement->execute();
                     $results = $statement->fetchAll();
                     $statement->closeCursor();
                     if($results) {
-                        echo $results[0]['card_number'];
+                        echo substr($results[0]['card_number'], 0, 4) . " " . substr($results[0]['card_number'], 4, 4) . " " . substr($results[0]['card_number'], 8, 4) . " " . substr($results[0]['card_number'], 12, 4) . " (" . $results[0]['type'] . ")";
                     }
                     else {
                         echo "(No payment stored)";
