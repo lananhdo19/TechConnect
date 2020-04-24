@@ -375,10 +375,7 @@ $prices = getPrice();
         </td>
         <td>
           <?php 
-            if (($task['brand'] == $prices['brand']) and ($task['item_condition'] == $prices['item_condition']) and ($task['type'] == $prices['type']))
-            {
-              echo $prices['price'];
-            }
+              echo $task['price'];
             ?>
         </td>
         <td>
