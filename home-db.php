@@ -37,15 +37,16 @@ function getAllTasks()
 	
 	return $results;
 }
+
 function getListing($listtype)
 {
     global $db;
     global $t;
     $t = "listing";
 
-	$query = "SELECT * FROM $t where type = listtype";
+	$query = "SELECT * FROM $t where type = 'listtype'";
 	$statement = $db->prepare($query);
-	$statement->bindValue('listtype', $listtype);
+	$statement->bindValue(listtype, $listtype);
 	$statement->execute();
 	
 	// fetchAll() returns an array for all of the rows in the result set
