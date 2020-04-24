@@ -103,6 +103,7 @@ if (isset($_SESSION['user'])) {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (!empty($_POST['action']) && $_POST['action'] == 'update') {
 
+            //update user_pass
             $query = "UPDATE user_pass SET email=:email WHERE email=:curEmail";
             $statement = $db->prepare($query);
             $statement->bindValue(':curEmail', $_SESSION['email']);
@@ -110,10 +111,42 @@ if (isset($_SESSION['user'])) {
             $statement->execute();
             $statement->closeCursor();
 
+            //update profile
             $query2 = "UPDATE profile SET Username=:username, email=:email WHERE email=:curEmail";
             $statement = $db->prepare($query2);
             $statement->bindValue(':curEmail', $_SESSION['email']);
             $statement->bindValue(':email', $_POST['email']);
+            $statement->bindValue(':username', $_POST['username']);
+            $statement->execute();
+            $statement->closeCursor();
+
+            //update messages
+            $query3 = "UPDATE messages SET username_1=:username WHERE username_1=:curUser";
+            $statement = $db->prepare($query3);
+            $statement->bindValue(':curUser', $_SESSION['user']);
+            $statement->bindValue(':username', $_POST['username']);
+            $statement->execute();
+            $statement->closeCursor();
+
+            $query4 = "UPDATE messages SET username_2=:username WHERE username_2=:curUser";
+            $statement = $db->prepare($query4);
+            $statement->bindValue(':curUser', $_SESSION['user']);
+            $statement->bindValue(':username', $_POST['username']);
+            $statement->execute();
+            $statement->closeCursor();
+
+            //update lists
+            $query5 = "UPDATE lists SET Username=:username WHERE Username=:curUser";
+            $statement = $db->prepare($query5);
+            $statement->bindValue(':curUser', $_SESSION['user']);
+            $statement->bindValue(':username', $_POST['username']);
+            $statement->execute();
+            $statement->closeCursor();
+
+            //update card_info
+            $query5 = "UPDATE card_info SET User=:username WHERE User=:curUser";
+            $statement = $db->prepare($query5);
+            $statement->bindValue(':curUser', $_SESSION['user']);
             $statement->bindValue(':username', $_POST['username']);
             $statement->execute();
             $statement->closeCursor();
@@ -125,20 +158,20 @@ if (isset($_SESSION['user'])) {
                 $statement->execute();
                 $results = $statement->fetchAll();
                 $statement->closeCursor();
-                if (password_verify($results[0]['password'], $_POST['oldPwd'])) {
+                if (password_verify($_POST['oldPwd'], $results[0]['password'])) {
                     $password = password_hash(htmlspecialchars($_POST['newPwd']), PASSWORD_BCRYPT);
                     $query3 = "UPDATE user_pass SET password=:password WHERE email=:curEmail";
                     $statement = $db->prepare($query3);
                     $statement->bindValue(':curEmail', $_SESSION['email']);
-                    $statement->bindValue(':password', $_POST['oldPwd']);
+                    $statement->bindValue(':password', $password);
                     $statement->execute();
                     $statement->closeCursor();
                 }
             }
 
-            //$_SESSION['user'] = $_POST['username'];
-            //$_SESSION['email'] = $_POST['email'];
-            //header('Location: user.php)
+            $_SESSION['user'] = $_POST['username'];
+            $_SESSION['email'] = $_POST['email'];
+            header('Location: user.php');
         }
     }
     ?>
@@ -191,13 +224,6 @@ if (isset($_SESSION['user'])) {
         </div>
     </div>
 
-    <?php
-    if (! empty($_POST['create'])){
-        if(! empty($_POST['inputBrand']) & ! empty($_POST['inputCondition']) & ! empty($_POST['inputType']) & ! empty( $_POST['inputDescription']) & ! empty( $_POST['inputPrice']) ){
-            add_listing($_POST['inputBrand'], $_POST['inputCondition'], $_POST['inputType'], $_POST['inputDescription'], $_POST['inputPrice']);
-        }
-    }
-?>
 
     <!-- Create Listing Entry Modal -->
     <div class="modal fade" id="createListingModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -279,16 +305,16 @@ if (isset($_SESSION['user'])) {
                             </div>
                         </div>
 
-                        <!-- <div class="form-group">
+                        <div class="form-group">
                             <label for="inputItemPic">Upload Images</label>
                             <input type="file" class="form-control" id="inputItemPic">
-                        </div> -->
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="resetModal()">Cancel
                     </button>
-                    <button type="submit" id ="create" class="btn btn-primary" onclick="listingValidation()">Submit</button>
+                    <button type="submit" class="btn btn-primary" onclick="listingValidation()">Submit</button>
                 </div>
             </div>
         </div>
