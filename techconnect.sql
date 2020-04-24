@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 24, 2020 at 11:21 PM
+-- Generation Time: Apr 24, 2020 at 11:15 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -80,7 +80,7 @@ CREATE TABLE `listing` (
 
 INSERT INTO `listing` (`item_id`, `image`, `brand`, `item_condition`, `type`, `description`, `price`) VALUES
 (1, 'laptops.jpg', 'apple', 'new', 'laptop', 'MacBook Pro 2013', 1000),
-(2, 'heaphones.jpg', 'bose', 'good', 'headphones', 'Noise-cancelling, over the ear headphones', 85),
+(2, 'headphones.jpg', 'bose', 'good', 'headphones', 'Noise-cancelling, over the ear headphones', 85),
 (3, 'tv.jpg', 'samsung', 'fair', 'tv', 'Used for two years, fair condition, black, 40 inch', 150),
 (4, 'tablets.jpg', 'apple', 'good', 'tablet', 'ipad mini, 7.9 inch retina display', 300),
 (5, 'desktops.jpg', 'dell', 'excellent', 'desktop', 'dell inspiron, 7th generation, windows 10', 450);
@@ -179,10 +179,10 @@ CREATE TABLE `user_pass` (
 
 INSERT INTO `user_pass` (`email`, `password`) VALUES
 ('dsfsafd@g.sd', '$2y$10$IIncV2e9D92ojTb12VUkzeHsaC/2n1m9MiD8Sn5tJ5drc7eDuxPe2'),
-('hew5fz@virginia.edu', '$2y$10$XC0apkiVlkx2XUN9v9EXL.edI.oE8hM78veLjcYckaIqm722Rnw4.'),
-('jc4rn@virginia.edu', '$2y$10$XC0apkiVlkx2XUN9v9EXL.edI.oE8hM78veLjcYckaIqm722Rnw4.'),
+('hew5fz@virginia.edu', 'abcDe1234'),
+('jc4rn@virginia.edu', 'Abcde1234'),
 ('ld9hu@virginia.edu', '$2y$10$XC0apkiVlkx2XUN9v9EXL.edI.oE8hM78veLjcYckaIqm722Rnw4.'),
-('zh2yn@virginia.edu', '$2y$10$XC0apkiVlkx2XUN9v9EXL.edI.oE8hM78veLjcYckaIqm722Rnw4.');
+('zh2yn@virginia.edu', 'abCde1234');
 
 --
 -- Indexes for dumped tables
@@ -250,28 +250,6 @@ ALTER TABLE `listing`
 ALTER TABLE `transaction`
   MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `messages`
---
-ALTER TABLE `messages`
-  ADD CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`username_1`) REFERENCES `profile` (`Username`),
-  ADD CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`username_2`) REFERENCES `profile` (`Username`);
-
---
--- Constraints for table `profile`
---
-ALTER TABLE `profile`
-  ADD CONSTRAINT `profile_ibfk_1` FOREIGN KEY (`email`) REFERENCES `user_pass` (`email`);
-
---
--- Constraints for table `transaction`
---
-ALTER TABLE `transaction`
-  ADD CONSTRAINT `transaction_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `listing` (`item_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
