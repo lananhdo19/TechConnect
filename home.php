@@ -259,6 +259,12 @@
     }
     function closeProducts() {
         document.getElementById("prod-form").style.display = "none";
+        document.getElementById("prod-form-LT").style.display = "none";
+        document.getElementById("prod-form-HP").style.display = "none";
+        document.getElementById("prod-form-TV").style.display = "none";
+        document.getElementById("prod-form-G").style.display = "none";
+        document.getElementById("prod-form-TB").style.display = "none";
+        document.getElementById("prod-form-DT").style.display = "none";
     }
     function sortProducts() {
 
