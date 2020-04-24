@@ -19,4 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $statement->closeCursor();
 
 
+    session_start();
+    $_SESSION['email'] = $email;
+    $_SESSION['user'] = $user;
+
+
+
 }

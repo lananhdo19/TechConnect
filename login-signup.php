@@ -39,18 +39,20 @@
                 <div class="signup-form form-group">
                     <h3>Create an Account</h3>
                     <span id="name-msg" class="error"></span>
-                    <!--<div class="row">
-                       <div class="col-6">
-                           <input type="text" placeholder="First Name" class="inputP" id="firstName" autofocus required><br />
-                       </div>
-                       <div class="col-6">
-                           <input type="text" placeholder="Last Name" class="inputP" id="lastName" required><br />
-                       </div>
-                   </div> -->
                    <span id="email-msg" class="error"></span>
                    <input type="text" placeholder="Email" class="inputP" id="emailSign" required><br />
                    <span id="password-msg" class="error"></span>
                    <input type="password" placeholder="Password" class="inputP" id="passwordSign" required><br />
+                   <input type="text" placeholder="Credit Card Number 16 Digits" class="inputP" id="cardNumber" autofocus required><br />
+
+                        <div class="row" style="justify-content: center;">
+                            <span id="card-msg" class="error"></span>
+                        <input type="radio" id="cardType" name="cardType" value="Debit">
+                        <label for="cardDebit">Debit</label><br>
+                        <input type="radio" id="cardType" name="cardType" value="credit">
+                        <label for="cardCredit">Credit</label><br>
+                        </div>
+
                    <button class="btn btn-primary" name="action" value="signUp" id="signUpButton" >Sign Up</button>
                    <p>Already have an account? <a class="loginTab">Login</a></p>
                </div>
