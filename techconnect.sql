@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 24, 2020 at 11:15 PM
+-- Generation Time: Apr 24, 2020 at 11:21 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -179,10 +179,10 @@ CREATE TABLE `user_pass` (
 
 INSERT INTO `user_pass` (`email`, `password`) VALUES
 ('dsfsafd@g.sd', '$2y$10$IIncV2e9D92ojTb12VUkzeHsaC/2n1m9MiD8Sn5tJ5drc7eDuxPe2'),
-('hew5fz@virginia.edu', 'abcDe1234'),
-('jc4rn@virginia.edu', 'Abcde1234'),
+('hew5fz@virginia.edu', '$2y$10$XC0apkiVlkx2XUN9v9EXL.edI.oE8hM78veLjcYckaIqm722Rnw4.'),
+('jc4rn@virginia.edu', '$2y$10$XC0apkiVlkx2XUN9v9EXL.edI.oE8hM78veLjcYckaIqm722Rnw4.'),
 ('ld9hu@virginia.edu', '$2y$10$XC0apkiVlkx2XUN9v9EXL.edI.oE8hM78veLjcYckaIqm722Rnw4.'),
-('zh2yn@virginia.edu', 'abCde1234');
+('zh2yn@virginia.edu', '$2y$10$XC0apkiVlkx2XUN9v9EXL.edI.oE8hM78veLjcYckaIqm722Rnw4.');
 
 --
 -- Indexes for dumped tables

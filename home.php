@@ -415,7 +415,6 @@ $prices = getPrice();
         <button type="submit" class="btn btn-danger" onclick="closeProducts()"> Close </button></tr>
       </tr>
       </tr>
-      <?php echo "test" ?>
       <!--Some sort of for loop here that will go through the table and show the items on the screen -->
       <?php foreach ($LT as $task): ?>
         <tr>
