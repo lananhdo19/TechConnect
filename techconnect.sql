@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2020 at 01:58 AM
+-- Generation Time: Apr 24, 2020 at 11:15 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -44,61 +44,19 @@ DELIMITER ;
 
 CREATE TABLE `card_info` (
   `card_number` varchar(40) NOT NULL,
-  `type` varchar(10) DEFAULT NULL
+  `type` varchar(10) DEFAULT NULL,
+  `User` varchar(40) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `card_info`
 --
 
-INSERT INTO `card_info` (`card_number`, `type`) VALUES
-('532d4e37b1f940591970589fd61fae54', 'credit'),
-('a2b0b5d4d3015790182ba43527123434', 'credit'),
-('c287bf76192b845a5e25167abc784500', 'debit'),
-('e57ec13f658409dc225a5d65ca96717c', 'debit');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `credit_debit`
---
-
-CREATE TABLE `credit_debit` (
-  `pay_id` int(11) NOT NULL,
-  `card_number` varchar(40) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `credit_debit`
---
-
-INSERT INTO `credit_debit` (`pay_id`, `card_number`) VALUES
-(100003, '532d4e37b1f940591970589fd61fae54'),
-(100004, 'a2b0b5d4d3015790182ba43527123434'),
-(100001, 'c287bf76192b845a5e25167abc784500'),
-(100002, 'e57ec13f658409dc225a5d65ca96717c');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `item_score`
---
-
-CREATE TABLE `item_score` (
-  `Item_ID` int(11) NOT NULL,
-  `Username` varchar(40) NOT NULL,
-  `Score` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `item_score`
---
-
-INSERT INTO `item_score` (`Item_ID`, `Username`, `Score`) VALUES
-(1, 'jc4rn', 5),
-(2, 'ld9hu', 9),
-(3, 'zh2yn', 7),
-(4, 'zh2yn', 10);
+INSERT INTO `card_info` (`card_number`, `type`, `User`) VALUES
+('1224522892212222', 'credit', 'ld9hu'),
+('1224563445453333', 'credit', 'jc4rn'),
+('1234567891012131', 'debit', 'zh2yn'),
+('6543543574637548', 'debit', 'hew5fz');
 
 -- --------------------------------------------------------
 
@@ -112,43 +70,20 @@ CREATE TABLE `listing` (
   `brand` varchar(30) DEFAULT NULL,
   `item_condition` varchar(30) DEFAULT NULL,
   `type` varchar(30) DEFAULT NULL,
-  `description` varchar(100) DEFAULT NULL
+  `description` varchar(100) DEFAULT NULL,
+  `price` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `listing`
 --
 
-INSERT INTO `listing` (`item_id`, `image`, `brand`, `item_condition`, `type`, `description`) VALUES
-(1, 'laptop.jpg', 'apple', 'new', 'laptop', 'MacBook Pro 2013'),
-(2, 'bose_heaphone.jpg', 'bose', 'good', 'headphones', 'Noise-cancelling, over the ear headphones'),
-(3, 'tv.jpg', 'samsung', 'fair', 'tv', 'Used for two years, fair condition, black, 40 inch'),
-(4, 'tablet.jpg', 'apple', 'good', 'tablet', 'ipad mini, 7.9 inch retina display'),
-(5, 'dell_comp.jpg', 'dell', 'excellent', 'desktop', 'dell inspiron, 7th generation, windows 10');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `listing_brand`
---
-
-CREATE TABLE `listing_brand` (
-  `brand` varchar(30) NOT NULL,
-  `item_condition` varchar(30) NOT NULL,
-  `type` varchar(30) NOT NULL,
-  `price` float DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `listing_brand`
---
-
-INSERT INTO `listing_brand` (`brand`, `item_condition`, `type`, `price`) VALUES
-('apple', 'good', 'tablet', 300),
-('apple', 'new', 'laptop', 1000),
-('bose', 'good', 'headphones', 85),
-('dell', 'excellent', 'desktop', 450),
-('samsung', 'fair', 'tv', 150);
+INSERT INTO `listing` (`item_id`, `image`, `brand`, `item_condition`, `type`, `description`, `price`) VALUES
+(1, 'laptops.jpg', 'apple', 'new', 'laptop', 'MacBook Pro 2013', 1000),
+(2, 'heaphones.jpg', 'bose', 'good', 'headphones', 'Noise-cancelling, over the ear headphones', 85),
+(3, 'tv.jpg', 'samsung', 'fair', 'tv', 'Used for two years, fair condition, black, 40 inch', 150),
+(4, 'tablets.jpg', 'apple', 'good', 'tablet', 'ipad mini, 7.9 inch retina display', 300),
+(5, 'desktops.jpg', 'dell', 'excellent', 'desktop', 'dell inspiron, 7th generation, windows 10', 450);
 
 -- --------------------------------------------------------
 
@@ -166,31 +101,10 @@ CREATE TABLE `lists` (
 --
 
 INSERT INTO `lists` (`item_id`, `Username`) VALUES
-(4, 'hew5fz'),
 (1, 'jc4rn'),
 (2, 'ld9hu'),
-(3, 'zh2yn');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `makes`
---
-
-CREATE TABLE `makes` (
-  `username` varchar(40) DEFAULT NULL,
-  `transaction_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `makes`
---
-
-INSERT INTO `makes` (`username`, `transaction_id`) VALUES
-('hew5fz', 1001),
-('jc4rn', 1003),
-('jc4rn', 1004),
-('zh2yn', 1002);
+(3, 'zh2yn'),
+(4, 'hew5fz');
 
 -- --------------------------------------------------------
 
@@ -213,27 +127,6 @@ INSERT INTO `messages` (`username_1`, `username_2`, `text`) VALUES
 ('jc4rn', 'ld9hu', 'Test message from jc4rn to ld9hu'),
 ('ld9hu', 'zh2yn', 'Test message from ld9hu to zh2yn'),
 ('zh2yn', 'hew5fz', 'Test message from zh2yn to hew5fz');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `payment_stored`
---
-
-CREATE TABLE `payment_stored` (
-  `pay_ID` int(11) NOT NULL,
-  `username` varchar(40) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `payment_stored`
---
-
-INSERT INTO `payment_stored` (`pay_ID`, `username`) VALUES
-(100004, 'hew5fz'),
-(100001, 'jc4rn'),
-(100002, 'ld9hu'),
-(100003, 'zh2yn');
 
 -- --------------------------------------------------------
 
@@ -265,19 +158,9 @@ INSERT INTO `profile` (`Username`, `email`) VALUES
 CREATE TABLE `transaction` (
   `transaction_id` int(11) NOT NULL,
   `item_id` int(11) DEFAULT NULL,
-  `payment_info` int(11) DEFAULT NULL,
-  `date` datetime DEFAULT NULL
+  `date` datetime DEFAULT NULL,
+  `card_number` varchar(40) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `transaction`
---
-
-INSERT INTO `transaction` (`transaction_id`, `item_id`, `payment_info`, `date`) VALUES
-(1001, 1, 100004, '2019-01-05 00:00:00'),
-(1002, 2, 100003, '2019-03-08 00:00:00'),
-(1003, 3, 100001, '2019-11-15 00:00:00'),
-(1004, 4, 100001, '2019-12-01 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -295,10 +178,11 @@ CREATE TABLE `user_pass` (
 --
 
 INSERT INTO `user_pass` (`email`, `password`) VALUES
-('hew5fz@virginia.edu', '$2y$10$1N5XGtsdoDZBeQK3/5vrxuf/yZ0XZJ/jXfLfQfXwxy0dJWrCSZtIC'),
-('jc4rn@virginia.edu', '$2y$10$0LNmxCdxshq9k/pDlllLDO2HNFnhvUrvGLD2DTosfx3rb8RS5KPR2'),
-('ld9hu@virginia.edu', '$2y$10$XNUr/zX.5HSc73LyPrw35epilvqzN304/OsHKsKDAK1vY5NUMRdfS'),
-('zh2yn@virginia.edu', '$2y$10$NZBOcmuij9hTEUqfvsELCeMgaukWIzFJas6BJxW.tBZ9KeWR5a3D2');
+('dsfsafd@g.sd', '$2y$10$IIncV2e9D92ojTb12VUkzeHsaC/2n1m9MiD8Sn5tJ5drc7eDuxPe2'),
+('hew5fz@virginia.edu', 'abcDe1234'),
+('jc4rn@virginia.edu', 'Abcde1234'),
+('ld9hu@virginia.edu', '$2y$10$XC0apkiVlkx2XUN9v9EXL.edI.oE8hM78veLjcYckaIqm722Rnw4.'),
+('zh2yn@virginia.edu', 'abCde1234');
 
 --
 -- Indexes for dumped tables
@@ -311,45 +195,17 @@ ALTER TABLE `card_info`
   ADD PRIMARY KEY (`card_number`);
 
 --
--- Indexes for table `credit_debit`
---
-ALTER TABLE `credit_debit`
-  ADD PRIMARY KEY (`pay_id`),
-  ADD KEY `card_number` (`card_number`);
-
---
--- Indexes for table `item_score`
---
-ALTER TABLE `item_score`
-  ADD PRIMARY KEY (`Item_ID`,`Username`),
-  ADD KEY `Username` (`Username`);
-
---
 -- Indexes for table `listing`
 --
 ALTER TABLE `listing`
   ADD PRIMARY KEY (`item_id`),
-  ADD KEY `brand` (`brand`,`item_condition`,`type`);
-
---
--- Indexes for table `listing_brand`
---
-ALTER TABLE `listing_brand`
-  ADD PRIMARY KEY (`brand`,`item_condition`,`type`);
+  ADD UNIQUE KEY `unique_image` (`image`);
 
 --
 -- Indexes for table `lists`
 --
 ALTER TABLE `lists`
-  ADD PRIMARY KEY (`item_id`),
-  ADD KEY `Username` (`Username`);
-
---
--- Indexes for table `makes`
---
-ALTER TABLE `makes`
-  ADD PRIMARY KEY (`transaction_id`),
-  ADD KEY `username` (`username`);
+  ADD PRIMARY KEY (`item_id`);
 
 --
 -- Indexes for table `messages`
@@ -357,13 +213,6 @@ ALTER TABLE `makes`
 ALTER TABLE `messages`
   ADD PRIMARY KEY (`username_1`,`username_2`),
   ADD KEY `username_2` (`username_2`);
-
---
--- Indexes for table `payment_stored`
---
-ALTER TABLE `payment_stored`
-  ADD PRIMARY KEY (`pay_ID`),
-  ADD KEY `username` (`username`);
 
 --
 -- Indexes for table `profile`
@@ -377,8 +226,7 @@ ALTER TABLE `profile`
 --
 ALTER TABLE `transaction`
   ADD PRIMARY KEY (`transaction_id`),
-  ADD KEY `item_id` (`item_id`),
-  ADD KEY `payment_info` (`payment_info`);
+  ADD KEY `item_id` (`item_id`);
 
 --
 -- Indexes for table `user_pass`
@@ -387,41 +235,24 @@ ALTER TABLE `user_pass`
   ADD PRIMARY KEY (`email`);
 
 --
--- Constraints for dumped tables
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- Constraints for table `credit_debit`
---
-ALTER TABLE `credit_debit`
-  ADD CONSTRAINT `credit_debit_ibfk_1` FOREIGN KEY (`card_number`) REFERENCES `card_info` (`card_number`);
-
---
--- Constraints for table `item_score`
---
-ALTER TABLE `item_score`
-  ADD CONSTRAINT `item_score_ibfk_1` FOREIGN KEY (`Item_ID`) REFERENCES `listing` (`item_id`),
-  ADD CONSTRAINT `item_score_ibfk_2` FOREIGN KEY (`Username`) REFERENCES `profile` (`Username`);
-
---
--- Constraints for table `listing`
+-- AUTO_INCREMENT for table `listing`
 --
 ALTER TABLE `listing`
-  ADD CONSTRAINT `listing_ibfk_1` FOREIGN KEY (`brand`,`item_condition`,`type`) REFERENCES `listing_brand` (`brand`, `item_condition`, `type`);
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- Constraints for table `lists`
+-- AUTO_INCREMENT for table `transaction`
 --
-ALTER TABLE `lists`
-  ADD CONSTRAINT `lists_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `listing` (`item_id`),
-  ADD CONSTRAINT `lists_ibfk_2` FOREIGN KEY (`Username`) REFERENCES `profile` (`Username`);
+ALTER TABLE `transaction`
+  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- Constraints for table `makes`
+-- Constraints for dumped tables
 --
-ALTER TABLE `makes`
-  ADD CONSTRAINT `makes_ibfk_1` FOREIGN KEY (`transaction_id`) REFERENCES `transaction` (`transaction_id`),
-  ADD CONSTRAINT `makes_ibfk_2` FOREIGN KEY (`username`) REFERENCES `profile` (`Username`);
 
 --
 -- Constraints for table `messages`
@@ -429,12 +260,6 @@ ALTER TABLE `makes`
 ALTER TABLE `messages`
   ADD CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`username_1`) REFERENCES `profile` (`Username`),
   ADD CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`username_2`) REFERENCES `profile` (`Username`);
-
---
--- Constraints for table `payment_stored`
---
-ALTER TABLE `payment_stored`
-  ADD CONSTRAINT `payment_stored_ibfk_1` FOREIGN KEY (`username`) REFERENCES `profile` (`Username`);
 
 --
 -- Constraints for table `profile`
@@ -446,8 +271,7 @@ ALTER TABLE `profile`
 -- Constraints for table `transaction`
 --
 ALTER TABLE `transaction`
-  ADD CONSTRAINT `transaction_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `listing` (`item_id`),
-  ADD CONSTRAINT `transaction_ibfk_2` FOREIGN KEY (`payment_info`) REFERENCES `credit_debit` (`pay_id`);
+  ADD CONSTRAINT `transaction_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `listing` (`item_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
