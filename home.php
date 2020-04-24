@@ -391,6 +391,7 @@ $prices = getPrice();
       <?php foreach ($LT as $task): ?>
         <tr>
         <td>
+        <?php echo "test"; ?> 
           <?php echo $task['item_id']; ?>
         </td>
         <td>
