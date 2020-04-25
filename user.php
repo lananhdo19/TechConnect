@@ -228,7 +228,7 @@ if (isset($_SESSION['user'])) {
         {
             echo "does this work";
             if (!empty($_POST['inputBrand']) && !empty($_POST['inputType']) && !empty($_POST['inputDescription'])&& !empty($_POST['inputCondition'])&& !empty($_POST['price'])){
-                add_listing($_POST['inputBrand'], $_POST['inputType'], $_POST['inputDescription'], $_POST['inputCondition'], $_POST['inputPrice']);
+                add_listing($_POST['inputBrand'],$_POST['inputCondition'], $_POST['inputType'], $_POST['inputDescription'], $_POST['inputPrice']);
             }
             
             else {
