@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 25, 2020 at 10:29 PM
+-- Generation Time: Apr 25, 2020 at 11:44 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -66,7 +66,6 @@ INSERT INTO `card_info` (`card_number`, `type`, `User`) VALUES
 
 CREATE TABLE `listing` (
   `item_id` int(11) NOT NULL,
-  `image` varchar(50) DEFAULT NULL,
   `brand` varchar(30) DEFAULT NULL,
   `item_condition` varchar(30) DEFAULT NULL,
   `type` varchar(30) DEFAULT NULL,
@@ -78,12 +77,10 @@ CREATE TABLE `listing` (
 -- Dumping data for table `listing`
 --
 
-INSERT INTO `listing` (`item_id`, `image`, `brand`, `item_condition`, `type`, `description`, `price`) VALUES
-(1, 'laptops.jpg', 'apple', 'new', 'laptop', 'MacBook Pro 2013', 1000),
-(2, 'headphones.jpg', 'bose', 'good', 'headphones', 'Noise-cancelling, over the ear headphones', 85),
-(3, 'tv.jpg', 'samsung', 'fair', 'tv', 'Used for two years, fair condition, black, 40 inch', 150),
-(4, 'tablets.jpg', 'apple', 'good', 'tablet', 'ipad mini, 7.9 inch retina display', 300),
-(5, 'desktops.jpg', 'dell', 'excellent', 'desktop', 'dell inspiron, 7th generation, windows 10', 450);
+INSERT INTO `listing` (`item_id`, `brand`, `item_condition`, `type`, `description`, `price`) VALUES
+(2, 'bose', 'good', 'headphones', 'Noise-cancelling, over the ear headphones', 85),
+(3, 'samsung', 'fair', 'tv', 'Used for two years, fair condition, black, 40 inch', 150),
+(4, 'apple', 'good', 'tablet', 'ipad mini, 7.9 inch retina display', 300);
 
 -- --------------------------------------------------------
 
@@ -139,6 +136,13 @@ CREATE TABLE `makes` (
   `transaction_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `makes`
+--
+
+INSERT INTO `makes` (`username`, `transaction_id`) VALUES
+('ld9hu', 37);
+
 -- --------------------------------------------------------
 
 --
@@ -158,8 +162,10 @@ CREATE TABLE `messages` (
 INSERT INTO `messages` (`username_1`, `username_2`, `text`) VALUES
 ('hew5fz', 'jc4rn', 'Test message from hew5fz to jc4rn'),
 ('jc4rn', 'ld9hu', 'Test message from jc4rn to ld9hu'),
+('ld9hu', 'ld9hu', 'sdafgdsdgs'),
 ('ld9hu', 'zh2yn', 'Test message from ld9hu to zh2yn'),
-('zh2yn', 'hew5fz', 'Test message from zh2yn to hew5fz');
+('zh2yn', 'hew5fz', 'Test message from zh2yn to hew5fz'),
+('zh5yn', 'ld9hu', 'hellow');
 
 -- --------------------------------------------------------
 
@@ -207,13 +213,14 @@ CREATE TABLE `transaction` (
 --
 
 INSERT INTO `transaction` (`transaction_id`, `item_id`, `date`, `card_number`) VALUES
-(5, 5, '2020-04-25 02:20:18', '1224522892212222'),
-(6, 1, '2020-04-25 02:22:31', '1224522892212222'),
-(7, 2, '2020-04-25 02:22:35', '1224522892212222'),
-(8, 3, '2020-04-25 02:22:38', '1224522892212222'),
-(9, 4, '2020-04-25 02:22:45', '1224522892212222'),
-(10, 5, '2020-04-25 02:22:49', '1224522892212222'),
-(11, 2, '2020-04-25 22:06:41', '1224522892212222');
+(30, 3, '2020-04-25 23:35:11', '1224522892212222'),
+(31, 3, '2020-04-25 23:35:58', '1224522892212222'),
+(32, 3, '2020-04-25 23:36:35', '1224522892212222'),
+(33, 3, '2020-04-25 23:36:44', '1224522892212222'),
+(34, 3, '2020-04-25 23:37:40', '1224522892212222'),
+(35, 3, '2020-04-25 23:38:00', '1224522892212222'),
+(36, 3, '2020-04-25 23:38:35', '1224522892212222'),
+(37, 2, '2020-04-25 23:39:56', '1224522892212222');
 
 -- --------------------------------------------------------
 
@@ -260,8 +267,7 @@ ALTER TABLE `card_info`
 -- Indexes for table `listing`
 --
 ALTER TABLE `listing`
-  ADD PRIMARY KEY (`item_id`),
-  ADD UNIQUE KEY `unique_image` (`image`);
+  ADD PRIMARY KEY (`item_id`);
 
 --
 -- Indexes for table `listing_brand`
@@ -328,7 +334,7 @@ ALTER TABLE `listing`
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
