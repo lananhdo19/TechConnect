@@ -254,16 +254,6 @@ if (!empty($_POST['action']))
          deleteTask($_POST['item_id']);
    }
 
-    if($_POST["username_1"] !="" && $_POST["username_2"] != "" && $_POST["text"] !="" )
-    {
-        $username_1 = $_POST["username_1"];
-        $username_2 = $_POST["username_2"];
-        $text= $_POST["text"];
-        createMessage($username_1, $username_2, $text);
-    //$sql = "INSERT INTO `messages` VALUES ( '$username_1','$username_2','$text')";
-    //$result = mysql_query($sql,$db);
-}
-
 }
 $tasks = getAllTasks();
 $LT = getListing('laptop');
@@ -757,19 +747,3 @@ $prices = getPrice();
     </div>
 </div>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
