@@ -6,7 +6,7 @@
 function add_listing($brand, $item_condition, $type, $description, $price, $image){
     global $db;
     //collon specifies a "fill in the blank"
-    $query = "INSERT INTO listing (brand, item_condition, type, description, price) VALUES (:item_id, :brand, :item_condition, :type, :description, :price);";
+    $query = "INSERT INTO listing (brand, item_condition, type, description, price, image) VALUES (:item_id, :brand, :item_condition, :type, :description, :price, :image);";
     $statement = $db->prepare($query);
     $statement->bindValue(':brand', $brand);
     $statement->bindValue(':item_condition', $item_condition);
