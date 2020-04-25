@@ -229,7 +229,7 @@ if (isset($_SESSION['user'])) {
             echo "does this work";
             if (!empty($_POST['inputBrand']) && !empty($_POST['inputType']) && !empty($_POST['inputDescription'])&& !empty($_POST['inputCondition'])&& !empty($_POST['inputPrice'])){
                 add_listing($_POST['inputBrand'],$_POST['inputCondition'], $_POST['inputType'], $_POST['inputDescription'], $_POST['inputPrice']);
-                add_list($_POST['inputBrand'],$_POST['inputCondition'], $_POST['inputType'], $_POST['inputDescription'], $_POST['inputPrice'], $_POST['username']);
+                add_list($_POST['inputBrand'],$_POST['inputCondition'], $_POST['inputType'], $_POST['inputDescription'], $_POST['inputPrice'], $_SESSION['username']);
             }
 
             else {
@@ -325,11 +325,11 @@ if (isset($_SESSION['user'])) {
 
                     </form>
                 </div>
-                <div class="modal-footer" method="post">
+                <!-- <div class="modal-footer" method="post">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="resetModal()">Cancel
                     </button>
                     <button type="submit" class="btn btn-primary" name="listing_submit" onclick="listingValidation()">Submit</button>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
