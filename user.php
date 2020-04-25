@@ -223,7 +223,22 @@ if (isset($_SESSION['user'])) {
         </div>
     </div>
 
-
+    <?php
+        if (!empty($_POST['listing_submit']) )
+        {
+            echo "does this work";
+            if (!empty($_POST['inputBrand']) && !empty($_POST['inputType']) && !empty($_POST['inputDescription'])&& !empty($_POST['inputCondition'])&& !empty($_POST['price'])){
+                $img = ".jpg"
+                $img = $_POST['inputType'].$img
+                add_listing($_POST['inputBrand'], $_POST['inputType'], $_POST['inputDescription'], $_POST['inputCondition'], $_POST['inputPrice'], $img);
+            }
+            
+            else {
+                $msg = "Enter all information to add listing";
+                echo $msg;
+            }
+        }
+    ?>
     <!-- Create Listing Entry Modal -->
     <div class="modal fade" id="createListingModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -313,7 +328,7 @@ if (isset($_SESSION['user'])) {
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="resetModal()">Cancel
                     </button>
-                    <button type="submit" class="btn btn-primary" onclick="listingValidation()">Submit</button>
+                    <button type="submit" class="btn btn-primary" id ="listing_submit" onclick="listingValidation()">Submit</button>
                 </div>
             </div>
         </div>
