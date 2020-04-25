@@ -8,13 +8,13 @@
 function deleteTask($item_id)
 {
     global $db;
-    global $t;
-    $t = "listing";
+
+    echo $item_id;
 	
-	$query = "DELETE FROM $t WHERE item_id=:item_id";
+	$query = "DELETE FROM listing WHERE item_id=$item_id";
 	////$query = "DELETE FROM $t WHERE `listing`.`item_id`=:item_id";
 	$statement = $db->prepare($query);
-	$statement->bindValue(':item_id', $item_id);
+	//$statement->bindValue(':item_id', $item_id);
 	$statement->execute();
 	$statement->closeCursor();
 	//DELETE FROM `listing` WHERE `listing`.`item_id` = 1
