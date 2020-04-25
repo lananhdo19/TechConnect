@@ -321,10 +321,10 @@ if (isset($_SESSION['user'])) {
                         
                     </form>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer" method="post">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="resetModal()">Cancel
                     </button>
-                    <button type="submit" class="btn btn-primary" id ="listing_submit" onclick="listingValidation()">Submit</button>
+                    <button type="submit" class="btn btn-primary" name="listing_submit" onclick="listingValidation()">Submit</button>
                 </div>
             </div>
         </div>
