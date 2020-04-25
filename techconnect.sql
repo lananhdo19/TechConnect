@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 24, 2020 at 11:15 PM
+-- Generation Time: Apr 25, 2020 at 10:29 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -88,6 +88,28 @@ INSERT INTO `listing` (`item_id`, `image`, `brand`, `item_condition`, `type`, `d
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `listing_brand`
+--
+
+CREATE TABLE `listing_brand` (
+  `brand` varchar(50) NOT NULL,
+  `count` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `listing_type`
+--
+
+CREATE TABLE `listing_type` (
+  `type` varchar(50) NOT NULL,
+  `image` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `lists`
 --
 
@@ -105,6 +127,17 @@ INSERT INTO `lists` (`item_id`, `Username`) VALUES
 (2, 'ld9hu'),
 (3, 'zh2yn'),
 (4, 'hew5fz');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `makes`
+--
+
+CREATE TABLE `makes` (
+  `username` varchar(40) DEFAULT NULL,
+  `transaction_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -144,9 +177,16 @@ CREATE TABLE `profile` (
 --
 
 INSERT INTO `profile` (`Username`, `email`) VALUES
+('ass', 'ass@sdfad.adsfa'),
+('assss', 'assss@sdfad.adsfa'),
+('fdfa', 'fdfa@dfg.vgd'),
 ('hew5fz', 'hew5fz@virginia.edu'),
+('james', 'james@smith.gom'),
 ('jc4rn', 'jc4rn@virginia.edu'),
+('ld9hsdfsfu', 'ld9hsdfsfu@virginia.edu'),
+('ld9hsxcxcxcxdfsfu', 'ld9hsxcxcxcxdfsfu@virginia.edu'),
 ('ld9hu', 'ld9hu@virginia.edu'),
+('ldaaa9hu', 'ldaaa9hu@virginia.edu'),
 ('zh2yn', 'zh2yn@virginia.edu');
 
 -- --------------------------------------------------------
@@ -161,6 +201,19 @@ CREATE TABLE `transaction` (
   `date` datetime DEFAULT NULL,
   `card_number` varchar(40) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `transaction`
+--
+
+INSERT INTO `transaction` (`transaction_id`, `item_id`, `date`, `card_number`) VALUES
+(5, 5, '2020-04-25 02:20:18', '1224522892212222'),
+(6, 1, '2020-04-25 02:22:31', '1224522892212222'),
+(7, 2, '2020-04-25 02:22:35', '1224522892212222'),
+(8, 3, '2020-04-25 02:22:38', '1224522892212222'),
+(9, 4, '2020-04-25 02:22:45', '1224522892212222'),
+(10, 5, '2020-04-25 02:22:49', '1224522892212222'),
+(11, 2, '2020-04-25 22:06:41', '1224522892212222');
 
 -- --------------------------------------------------------
 
@@ -178,11 +231,20 @@ CREATE TABLE `user_pass` (
 --
 
 INSERT INTO `user_pass` (`email`, `password`) VALUES
+('ass@sdfad.adsfa', '$2y$10$SLbt3Zca7KuUCiW.YgjDse.AsuRLszn6nkiQTXRmG9fY2NzfAV3nK'),
+('assss@sdfad.adsfa', '$2y$10$zGu41c/i79KZ4gtKrAWJiutJHEzHTuHfXhnN01wOdix3SagbIktem'),
 ('dsfsafd@g.sd', '$2y$10$IIncV2e9D92ojTb12VUkzeHsaC/2n1m9MiD8Sn5tJ5drc7eDuxPe2'),
-('hew5fz@virginia.edu', 'abcDe1234'),
-('jc4rn@virginia.edu', 'Abcde1234'),
+('fdfa@dfg.vgd', '$2y$10$4QpBbKo/hwLQqQQa4FLhpe/MZqJT8ISOdIqEtnOcFoPnqRD15vnIO'),
+('hew5fz@virginia.edu', '$2y$10$IIncV2e9D92ojTb12VUkzeHsaC/2n1m9MiD8Sn5tJ5drc7eDuxPe2'),
+('james@smith.gom', '$2y$10$/JUonBRZUxoYLuvq5o1r8.vinVWhOLj82nnKsC2IlsCe/318FudDS'),
+('jc4rn@virginia.edu', '$2y$10$IIncV2e9D92ojTb12VUkzeHsaC/2n1m9MiD8Sn5tJ5drc7eDuxPe2'),
+('ld9hsdfsfu@virginia.edu', '$2y$10$lgOKco3KomxnlkHIqcmAfu/uutKI3XV2XQ/gjwIPhif..F97W2/GS'),
+('ld9hsxcxcxcxdfsfu@virginia.edu', '$2y$10$2iJpiAq4NWx1ZwTDVfKdge44rt1LQHksNolhKsB6lcYWR2LnJR2Ja'),
 ('ld9hu@virginia.edu', '$2y$10$XC0apkiVlkx2XUN9v9EXL.edI.oE8hM78veLjcYckaIqm722Rnw4.'),
-('zh2yn@virginia.edu', 'abCde1234');
+('ld9hu@virginia.edus', '$2y$10$ayUQOfig1NUDE8GlQROCMOrVu5rkEh8wbzXvCEXbsEbdiKtTuO7eS'),
+('ld9hu@virginia.efffdus', '$2y$10$HMdE6OSXK8ZEIuT3xvCnn.PlSGw7Z/9riWdNdFcOmarhcN.bOdDVS'),
+('ldaaa9hu@virginia.edu', '$2y$10$aYMQ1IpGgyF9PNstyxO3o.yFiy48SFzxDej8qCs9sGA1HO7RZ2c7S'),
+('zh2yn@virginia.edu', '$2y$10$IIncV2e9D92ojTb12VUkzeHsaC/2n1m9MiD8Sn5tJ5drc7eDuxPe2');
 
 --
 -- Indexes for dumped tables
@@ -202,10 +264,28 @@ ALTER TABLE `listing`
   ADD UNIQUE KEY `unique_image` (`image`);
 
 --
+-- Indexes for table `listing_brand`
+--
+ALTER TABLE `listing_brand`
+  ADD PRIMARY KEY (`brand`);
+
+--
+-- Indexes for table `listing_type`
+--
+ALTER TABLE `listing_type`
+  ADD PRIMARY KEY (`type`);
+
+--
 -- Indexes for table `lists`
 --
 ALTER TABLE `lists`
   ADD PRIMARY KEY (`item_id`);
+
+--
+-- Indexes for table `makes`
+--
+ALTER TABLE `makes`
+  ADD PRIMARY KEY (`transaction_id`);
 
 --
 -- Indexes for table `messages`
@@ -248,8 +328,7 @@ ALTER TABLE `listing`
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
