@@ -12,10 +12,12 @@ function deleteTask($item_id)
     $t = "listing";
 	
 	$query = "DELETE FROM $t WHERE item_id=:item_id";
+	////$query = "DELETE FROM $t WHERE `listing`.`item_id`=:item_id";
 	$statement = $db->prepare($query);
 	$statement->bindValue(':item_id', $item_id);
 	$statement->execute();
 	$statement->closeCursor();
+	//DELETE FROM `listing` WHERE `listing`.`item_id` = 1
 }
 
 
@@ -108,7 +110,8 @@ function sort_table()
 function createMessage($username_1, $username_2, $text)
 {
 	global $db;
-	$query = "INSERT INTO Messages (username_1, username_2, text) VALUES (:username_1, :username_2, :text)";
+	$query = "INSERT INTO `messages` (`username_1`, `username_2`, `text`) VALUES (:username_1, :username_2, :text)";
+	//INSERT INTO `messages` (`username_1`, `username_2`, `text`) VALUES ('', '', NULL)
 	$statement = $db->prepare($query);
 	echo $query;
 	$statement->bindValue(':username_1', $username_1);
@@ -117,5 +120,19 @@ function createMessage($username_1, $username_2, $text)
 	$statement->execute(); 
 	
 	$statement->closeCursor();
+}
+
+function create_table()
+{	
+   global $db;
+   $query = "CREATE TABLE IF NOT EXISTS messages2 (
+            username_1 VARCHAR(40),
+            username_2 VARCHAR(40),
+            message VARCHAR(100),
+        PRIMARY KEY (username_1)
+		PRIMARY KEY (username_2)";
+   $statement = $db->prepare($query);
+   $statement->execute();
+   $statement->closeCursor();
 }
 ?>
