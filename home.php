@@ -171,12 +171,11 @@
 
 
 <ul class="ulBottomNav">
-  <li class="liBottomNav"><a href="#contact">About</a></li>
-  <li class="liBottomNav"><a href="user.php">Account</a></li>
+  <li class="liBottomNav"><a href="about.php">About</a></li>
     <?php session_start(); ?>
     <?php
     if (isset($_SESSION['email'])) {
-    ?>
+    ?><li class="liBottomNav"><a href="user.php">Account</a></li>
     <li class="liBottomNav"><a href="logout.php">Sign Out</a></li>
     <?php } else{
     ?>
@@ -445,7 +444,7 @@ $prices = getPrice();
           </form> 
         </td>                        
         <td>
-          <form action="home.php" method="post">
+          <form action="transaction.php" method="post">
             <input type="submit" value="Purchase" name="action" class="btn btn-primary" />      
             <input type="hidden" name="item_id" value="<?php echo $task['item_id'] ?>" />
           </form>
@@ -505,7 +504,7 @@ $prices = getPrice();
           </form> 
         </td>                        
         <td>
-          <form action="home.php" method="post">
+          <form action="transaction.php" method="post">
             <input type="submit" value="Purchase" name="action" class="btn btn-primary" />      
             <input type="hidden" name="item_id" value="<?php echo $task['item_id'] ?>" />
           </form>
@@ -565,7 +564,7 @@ $prices = getPrice();
           </form> 
         </td>                        
         <td>
-          <form action="home.php" method="post">
+          <form action="transaction.php" method="post">
             <input type="submit" value="Purchase" name="action" class="btn btn-primary" />      
             <input type="hidden" name="item_id" value="<?php echo $task['item_id'] ?>" />
           </form>
@@ -625,7 +624,7 @@ $prices = getPrice();
           </form> 
         </td>                        
         <td>
-          <form action="home.php" method="post">
+          <form action="transaction.php" method="post">
             <input type="submit" value="Purchase" name="action" class="btn btn-primary" />      
             <input type="hidden" name="item_id" value="<?php echo $task['item_id'] ?>" />
           </form>
@@ -684,7 +683,7 @@ $prices = getPrice();
           </form> 
         </td>                        
         <td>
-          <form action="home.php" method="post">
+          <form action="transaction.php" method="post">
             <input type="submit" value="Purchase" name="action" class="btn btn-primary" />      
             <input type="hidden" name="item_id" value="<?php echo $task['item_id'] ?>" />
           </form>
@@ -744,8 +743,8 @@ $prices = getPrice();
           </form> 
         </td>                        
         <td>
-          <form action="home.php" method="post">
-            <input type="submit" value="Purchase" name="action" class="btn btn-primary" />      
+          <form action="transaction.php" method="post">
+            <input type="submit" value="Purchase" name="action" class="btn btn-primary" />
             <input type="hidden" name="item_id" value="<?php echo $task['item_id'] ?>" />
           </form>
         </td>                                

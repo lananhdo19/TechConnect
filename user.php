@@ -33,7 +33,6 @@ if (isset($_SESSION['user'])) {
 
     <ul class="ulBottomNav">
         <li class="liBottomNav"><a class="active" href="home.php">Home</a></li>
-        <li class="liBottomNav"><a href="#contact">About</a></li>
         <li class="liBottomNav"><a href="logout.php">Logout</a></li>
     </ul>
 

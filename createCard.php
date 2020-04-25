@@ -1,7 +1,6 @@
 <?php
 
 require('connectdb.php');
-session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $cardNum = htmlspecialchars($_POST['cardNum']);
