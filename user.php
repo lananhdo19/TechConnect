@@ -230,7 +230,7 @@ if (isset($_SESSION['user'])) {
             if (!empty($_POST['inputBrand']) && !empty($_POST['inputType']) && !empty($_POST['inputDescription'])&& !empty($_POST['inputCondition'])&& !empty($_POST['inputPrice'])){
                 add_listing($_POST['inputBrand'],$_POST['inputCondition'], $_POST['inputType'], $_POST['inputDescription'], $_POST['inputPrice']);
             }
-            
+
             else {
                 $msg = "Enter all information to add listing";
             }
@@ -321,10 +321,14 @@ if (isset($_SESSION['user'])) {
                             </button>
                             <button type="submit" class="btn btn-primary" name="action" value="add" id ="listing_submit" onclick="listingValidation()">Submit</button>
                         </div>
-                        
+
                     </form>
                 </div>
-
+                <div class="modal-footer" method="post">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="resetModal()">Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary" name="listing_submit" onclick="listingValidation()">Submit</button>
+                </div>
             </div>
         </div>
     </div>

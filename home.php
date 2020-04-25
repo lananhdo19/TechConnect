@@ -237,7 +237,6 @@ if (!empty($_POST['db-btn']))
 
    if ($_POST['db-btn'] == "Send") 
    {
-    echo "does this work";
     if (!empty($_POST['username_1']) && !empty($_POST['username_2']) && !empty($_POST['text']))
       createMessage($_POST['username_1'], $_POST['username_2'], $_POST['text']);
     else {
@@ -277,7 +276,6 @@ $prices = getPrice();
 <div class="message" id="message-user">
 <form action="home.php" class="form-container" method="post">
     <h1> Send a Message </h1>
-    <?php echo createMessage($_POST['username_1'], $_POST['username_2'], $_POST['text']) ?>
     <label for="To"><b>To:</b></label>
     <input type="text" placeholder="Recipient" name="username_1" id="username_1" required>
 
@@ -286,9 +284,8 @@ $prices = getPrice();
 
     <label for="desc"><b>Message</b></label>
     <input type="text" placeholder="Enter message" name="text" id="text" required>
-    <input type="submit" value="Create" class="btn btn-dark" name="db-btn" title="Create 'messages' table"/>
     <input type="submit" value = "Send" class="btn btn-primary" name="db-btn"/>
-    Sending message to: <?php echo $_POST['username_1'] ?>
+    
     <button type="submit" class="btn btn-danger" onclick="closeForm()">Cancel</button></div>
     
 </body>
