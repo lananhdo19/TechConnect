@@ -224,16 +224,15 @@ if (isset($_SESSION['user'])) {
     </div>
 
     <?php
-        if (!empty($_POST['listing_submit']) )
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['action']) && $_POST['action'] == 'add' )
         {
             echo "does this work";
-            if (!empty($_POST['inputBrand']) && !empty($_POST['inputType']) && !empty($_POST['inputDescription'])&& !empty($_POST['inputCondition'])&& !empty($_POST['price'])){
+            if (!empty($_POST['inputBrand']) && !empty($_POST['inputType']) && !empty($_POST['inputDescription'])&& !empty($_POST['inputCondition'])&& !empty($_POST['inputPrice'])){
                 add_listing($_POST['inputBrand'],$_POST['inputCondition'], $_POST['inputType'], $_POST['inputDescription'], $_POST['inputPrice']);
             }
             
             else {
                 $msg = "Enter all information to add listing";
-                echo $msg;
             }
         }
     ?>
@@ -250,10 +249,10 @@ if (isset($_SESSION['user'])) {
                     </h5>
                 </div>
                 <div class="modal-body">
-                    <form class="listingForm">
+                    <form class="listingForm" method="POST">
                         <div class="form-group">
                             <label for="inputItemName">Item Name</label>
-                            <input type="text" class="form-control" id="inputItemName">
+                            <input type="text" class="form-control" id="inputItemName" name="inputItemName">
                             <div class="invalid-feedback" id="itemNameError">
                                 Please enter an item name
                             </div>
@@ -262,7 +261,7 @@ if (isset($_SESSION['user'])) {
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputBrand">Brand</label>
-                                <input type="text" class="form-control" id="inputBrand">
+                                <input type="text" class="form-control" id="inputBrand" name="inputBrand">
                                 <div class="invalid-feedback" id="brandError">
                                     Please enter a brand name
                                 </div>
@@ -270,7 +269,7 @@ if (isset($_SESSION['user'])) {
 
                             <div class="form-group col-md-6">
                                 <label for="inputPrice">Price</label>
-                                <input type="text" class="form-control" id="inputPrice">
+                                <input type="text" class="form-control" id="inputPrice" name="inputPrice">
                                 <div class="invalid-feedback" id="priceError">
                                     Please enter a price
                                 </div>
@@ -280,7 +279,7 @@ if (isset($_SESSION['user'])) {
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputCondition">Condition</label>
-                                <select id="inputCondition" class="form-control">
+                                <select id="inputCondition" name="inputCondition" class="form-control">
                                     <option selected>Choose...</option>
                                     <option value = "New">New</option>
                                     <option value = "Excellent">Excellent</option>
@@ -295,7 +294,7 @@ if (isset($_SESSION['user'])) {
 
                             <div class="form-group col-md-6">
                                 <label for="inputType">Type</label>
-                                <select id="inputType" class="form-control">
+                                <select id="inputType" name="inputType" class="form-control">
                                     <option selected>Choose...</option>
                                     <option value = "laptop">laptop</option>
                                     <option value = "headphones">headphones</option>
@@ -312,20 +311,20 @@ if (isset($_SESSION['user'])) {
 
                         <div class="form-group">
                             <label for="inputDescription">Item Description</label>
-                            <textarea type="textarea" class="form-control" id="inputDescription"></textarea>
+                            <textarea type="textarea" class="form-control" id="inputDescription" name="inputDescription"></textarea>
                             <div class="invalid-feedback" id="descriptionError">
                                 Please enter an item description
                             </div>
                         </div>
-
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="resetModal()">Cancel
+                            </button>
+                            <button type="submit" class="btn btn-primary" name="action" value="add" id ="listing_submit" onclick="listingValidation()">Submit</button>
+                        </div>
                         
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="resetModal()">Cancel
-                    </button>
-                    <button type="submit" class="btn btn-primary" id ="listing_submit" onclick="listingValidation()">Submit</button>
-                </div>
+
             </div>
         </div>
     </div>
