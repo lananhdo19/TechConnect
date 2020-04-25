@@ -298,11 +298,12 @@ if (isset($_SESSION['user'])) {
                                 <label for="inputType">Type</label>
                                 <select id="inputType" class="form-control">
                                     <option selected>Choose...</option>
-                                    <option>Headphones</option>
-                                    <option>TVs</option>
-                                    <option>Gaming</option>
-                                    <option>Tablets</option>
-                                    <option>Desktop</option>
+                                    <option>laptop</option>
+                                    <option>headphones</option>
+                                    <option>tv</option>
+                                    <option>gaming</option>
+                                    <option>tablet</option>
+                                    <option>desktop</option>
                                 </select>
                                 <div class="invalid-feedback" id="typeError">
                                     Please choose a type
