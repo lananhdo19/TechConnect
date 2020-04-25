@@ -218,12 +218,66 @@
   </div>
 </div>
 <br>
+<!--files needed for the database connection and functions -->
 
+<?php 
+require('connectdb.php'); 
+require('home-db.php');
+?>
+
+<?php 
+$msg = '';
+$task_to_update = '';
+
+if (!empty($_POST['db-btn']))
+{
+  if ($_POST['db-btn'] == "Create")           {   create_table();  }
+   if ($_POST['db-btn'] == "Sort")     {  
+     sort_table();  }
+
+   if ($_POST['db-btn'] == "Send") 
+   {
+    echo "does this work";
+    if (!empty($_POST['username_1']) && !empty($_POST['username_2']) && !empty($_POST['text']))
+      createMessage($_POST['username_1'], $_POST['username_2'], $_POST['text']);
+    else {
+      $msg = "Enter all information to send a message";
+      echo $msg;
+    }
+}
+if (!empty($_POST['action']))
+{
+  if ($_POST['action'] == "Delete")
+   {
+      if (!empty($_POST['item_id']) )
+         deleteTask($_POST['item_id']);
+   }
+   
+    if($_POST["username_1"] !="" && $_POST["username_2"] != "" && $_POST["text"] !="" )
+    {
+        $username_1 = $_POST["username_1"];
+        $username_2 = $_POST["username_2"];
+        $text= $_POST["text"];
+        createMessage($username_1, $username_2, $text);
+    //$sql = "INSERT INTO `messages` VALUES ( '$username_1','$username_2','$text')";
+    //$result = mysql_query($sql,$db);
+}
+   }
+}
+$tasks = getAllTasks();
+$LT = getListing('laptop');
+$HP = getListing('headphones');
+$TV = getListing('tv');
+$G = getListing('gaming');
+$TB = getListing('tablet');
+$DT = getListing('desktop');
+$prices = getPrice();
+?>
 
 <div class="message" id="message-user">
-<form action="home.php" class="form-container">
+<form action="home.php" class="form-container" method="post">
     <h1> Send a Message </h1>
-
+    <?php echo createMessage($_POST['username_1'], $_POST['username_2'], $_POST['text']) ?>
     <label for="To"><b>To:</b></label>
     <input type="text" placeholder="Recipient" name="username_1" id="username_1" required>
 
@@ -232,9 +286,11 @@
 
     <label for="desc"><b>Message</b></label>
     <input type="text" placeholder="Enter message" name="text" id="text" required>
-
-    <button type="submit" class="btn btn-primary" name="db-btn">Send</button>
+    <input type="submit" value="Create" class="btn btn-dark" name="db-btn" title="Create 'messages' table"/>
+    <input type="submit" value = "Send" class="btn btn-primary" name="db-btn"/>
+    Sending message to: <?php echo $_POST['username_1'] ?>
     <button type="submit" class="btn btn-danger" onclick="closeForm()">Cancel</button></div>
+    
 </body>
 
 <script>
@@ -281,60 +337,7 @@
 </script>
 
 
-<!--files needed for the database connection and functions -->
 
-<?php 
-require('connectdb.php'); 
-require('home-db.php');
-?>
-
-<?php 
-$msg = '';
-$task_to_update = '';
-
-if (!empty($_POST['db-btn']))
-{
-   if ($_POST['db-btn'] == "Sort")     {  
-     sort_table();  }
-
-   if ($_POST['db-btn'] == "Send") 
-   {
-    echo "does this work";
-    if (!empty($_POST['username_1']) && !empty($_POST['username_2']) && !empty($_POST['text']))
-      createMessage($_POST['username_1'], $_POST['username_2'], $_POST['text']);
-    else {
-      $msg = "Enter all information to send a message";
-      echo $msg;
-    }
-}
-if (!empty($_POST['action']))
-{
-  if ($_POST['action'] == "Delete")
-   {
-      if (!empty($_POST['item_id']) )
-         deleteTask($_POST['item_id']);
-   }
-   
-    if($_POST["username_1"] !="" && $_POST["username_2"] != "" && $_POST["text"] !="" )
-    {
-        $username_1 = $_POST["username_1"];
-        $username_2 = $_POST["username_2"];
-        $text= $_POST["text"];
-        createMessage($username_1, $username_2, $text);
-    //$sql = "INSERT INTO `messages` VALUES ( '$username_1','$username_2','$text')";
-    //$result = mysql_query($sql,$db);
-}
-   }
-}
-$tasks = getAllTasks();
-$LT = getListing('laptop');
-$HP = getListing('headphones');
-$TV = getListing('tv');
-$G = getListing('gaming');
-$TB = getListing('tablet');
-$DT = getListing('desktop');
-$prices = getPrice();
-?>
 
 <div class="product-popup" id="prod-form">
 <div class="form-container" style="overflow-x:auto; align:center">
@@ -755,4 +758,19 @@ $prices = getPrice();
     </div>
 </div>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

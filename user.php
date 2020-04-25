@@ -228,8 +228,7 @@ if (isset($_SESSION['user'])) {
         {
             echo "does this work";
             if (!empty($_POST['inputBrand']) && !empty($_POST['inputType']) && !empty($_POST['inputDescription'])&& !empty($_POST['inputCondition'])&& !empty($_POST['price'])){
-                $img = ($_POST['inputType']) . "jpg";
-                add_listing($_POST['inputBrand'], $_POST['inputType'], $_POST['inputDescription'], $_POST['inputCondition'], $_POST['inputPrice'], $img);
+                add_listing($_POST['inputBrand'], $_POST['inputType'], $_POST['inputDescription'], $_POST['inputCondition'], $_POST['inputPrice']);
             }
             
             else {
@@ -283,11 +282,11 @@ if (isset($_SESSION['user'])) {
                                 <label for="inputCondition">Condition</label>
                                 <select id="inputCondition" class="form-control">
                                     <option selected>Choose...</option>
-                                    <option>New</option>
-                                    <option>Excellent</option>
-                                    <option>Good</option>
-                                    <option>Fair</option>
-                                    <option>Broken</option>
+                                    <option value = "New">New</option>
+                                    <option value = "Excellent">Excellent</option>
+                                    <option value = "Good">Good</option>
+                                    <option value = "Fair">Fair</option>
+                                    <option value = "Broken">Broken</option>
                                 </select>
                                 <div class="invalid-feedback" id="conditionError">
                                     Please choose a condition
@@ -298,12 +297,12 @@ if (isset($_SESSION['user'])) {
                                 <label for="inputType">Type</label>
                                 <select id="inputType" class="form-control">
                                     <option selected>Choose...</option>
-                                    <option>laptop</option>
-                                    <option>headphones</option>
-                                    <option>tv</option>
-                                    <option>gaming</option>
-                                    <option>tablet</option>
-                                    <option>desktop</option>
+                                    <option value = "laptop">laptop</option>
+                                    <option value = "headphones">headphones</option>
+                                    <option value = "tv">tv</option>
+                                    <option value = "gaming">gaming</option>
+                                    <option value = "tablet">tablet</option>
+                                    <option value = "desktop">desktop</option>
                                 </select>
                                 <div class="invalid-feedback" id="typeError">
                                     Please choose a type

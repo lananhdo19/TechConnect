@@ -3,7 +3,7 @@
 //this is for the database functions to be used on the homepage
 //it'll go to the table listing and get all the information
 //can also delete a listing from the database
-function add_listing($brand, $item_condition, $type, $description, $price, $image){
+function add_listing($brand, $item_condition, $type, $description, $price){
     global $db;
     //collon specifies a "fill in the blank"
     $query = "INSERT INTO listing (brand, item_condition, type, description, price) VALUES (:item_id, :brand, :item_condition, :type, :description, :price);";
@@ -13,7 +13,6 @@ function add_listing($brand, $item_condition, $type, $description, $price, $imag
     $statement->bindValue(':type', $type);
     $statement->bindValue(':description', $description);
     $statement->bindValue(':price', $price);
-    $statement->bindValue(':image', $image);
     $statement->execute();
     $statement->closeCursor();
 }
