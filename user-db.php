@@ -1,5 +1,4 @@
 <?php
-
 //this is for the database functions to be used on the homepage
 //it'll go to the table listing and get all the information
 //can also delete a listing from the database
@@ -15,6 +14,7 @@ function add_listing($brand, $item_condition, $type, $description, $price){
     $statement->bindValue(':price', $price);
     $statement->execute();
     $statement->closeCursor();
+    header("Location: user.php");
 }
 function add_list($brand, $item_condition, $type, $description, $price, $username){
     global $db;
@@ -30,5 +30,6 @@ function add_list($brand, $item_condition, $type, $description, $price, $usernam
     $statement->bindValue(':username', $username);
     $statement->execute();
     $statement->closeCursor();
+    header("Location: user.php");
 }
 ?>

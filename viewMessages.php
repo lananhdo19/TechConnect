@@ -1,6 +1,6 @@
 <!-- Jason Chen (jc4rn) -->
 <div class="movieHomePage">
-    <?php
+<?php
     /*
     * sample sql to add data to listing
     * "INSERT INTO user (item_id, image, brand, item_condition, type, description)
@@ -14,7 +14,8 @@
     $results = $statement->fetchAll();
     $statement->closeCursor();
 
-    foreach ($results as $message): ?>
+    foreach ($results as $message): 
+?>
 
         <div class="row">
             <div class="column left-icon">
