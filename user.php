@@ -318,10 +318,7 @@ if (isset($_SESSION['user'])) {
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="inputItemPic">Upload Images</label>
-                            <input type="file" class="form-control" id="inputItemPic">
-                        </div>
+                        
                     </form>
                 </div>
                 <div class="modal-footer">
