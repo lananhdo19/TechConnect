@@ -162,7 +162,7 @@
 
 <body class="imgex" style="background-color: #E3E6E7;">
 
-<!-- Nav Bar --> 
+<!-- Nav Bar -->
 
 <ul class="upperNav">
     <h2 class="w3-xlarge w3-Courier" >Tech Connect</h2>
@@ -186,7 +186,7 @@
 
 </ul>
 
-<!-- Products --> 
+<!-- Products -->
 
 <h3 class="w3-xlarge productsTitle" style="text-align:center"> Products </h3>
 <br>
@@ -220,22 +220,22 @@
 <br>
 <!--files needed for the database connection and functions -->
 
-<?php 
-require('connectdb.php'); 
+<?php
+require('connectdb.php');
 require('home-db.php');
 ?>
 
-<?php 
+<?php
 $msg = '';
 $task_to_update = '';
 
 if (!empty($_POST['db-btn']))
 {
   if ($_POST['db-btn'] == "Create")           {   create_table();  }
-   if ($_POST['db-btn'] == "Sort")     {  
+   if ($_POST['db-btn'] == "Sort")     {
      sort_table();  }
 
-   if ($_POST['db-btn'] == "Send") 
+   if ($_POST['db-btn'] == "Send")
    {
     if (!empty($_POST['username_1']) && !empty($_POST['username_2']) && !empty($_POST['text']))
       createMessage($_POST['username_1'], $_POST['username_2'], $_POST['text']);
@@ -244,6 +244,8 @@ if (!empty($_POST['db-btn']))
       echo $msg;
     }
 }
+   }
+
 if (!empty($_POST['action']))
 {
   if ($_POST['action'] == "Delete")
@@ -251,17 +253,7 @@ if (!empty($_POST['action']))
       if (!empty($_POST['item_id']) )
          deleteTask($_POST['item_id']);
    }
-   
-    if($_POST["username_1"] !="" && $_POST["username_2"] != "" && $_POST["text"] !="" )
-    {
-        $username_1 = $_POST["username_1"];
-        $username_2 = $_POST["username_2"];
-        $text= $_POST["text"];
-        createMessage($username_1, $username_2, $text);
-    //$sql = "INSERT INTO `messages` VALUES ( '$username_1','$username_2','$text')";
-    //$result = mysql_query($sql,$db);
-}
-   }
+
 }
 $tasks = getAllTasks();
 $LT = getListing('laptop');
@@ -285,9 +277,9 @@ $prices = getPrice();
     <label for="desc"><b>Message</b></label>
     <input type="text" placeholder="Enter message" name="text" id="text" required>
     <input type="submit" value = "Send" class="btn btn-primary" name="db-btn"/>
-    
+
     <button type="submit" class="btn btn-danger" onclick="closeForm()">Cancel</button></div>
-    
+
 </body>
 
 <script>
@@ -349,7 +341,7 @@ $prices = getPrice();
         <th>Price</th>
         <th>Delete?</th>
         <th>Purchase</th>
-      <tr> 
+      <tr>
         <button type="submit" class="btn btn-secondary" onclick="sortProducts()"> Sort </button></tr>
         <button type="submit" class="btn btn-danger" onclick="closeProducts()"> Close </button></tr>
       </tr>
@@ -373,28 +365,28 @@ $prices = getPrice();
           <?php echo $task['description']; ?>
         </td>
         <td>
-          <?php 
+          <?php
               echo $task['price'];
             ?>
         </td>
         <td>
           <form action="home.php" method="post">
-            <input type="submit" value="Delete" name="action" class="btn btn-danger" />             
+            <input type="submit" value="Delete" name="action" class="btn btn-danger" />
             <input type="hidden" name="item_id" value="<?php echo $task['item_id'] ?>" />
-          </form> 
-        </td>                        
+          </form>
+        </td>
         <td>
           <form action="<?php $_SERVER['PHP_SELF']; ?>" method="post">
             <input type="submit" name="action" value="purchase" class="btn btn-primary" />
             <input type="hidden" name="item_id" value="<?php echo $task['item_id'] ?>" />
           </form>
-        </td>                                
+        </td>
       </tr>
-      
+
       <?php endforeach; ?>
     </table>
     </div>
-</div>   
+</div>
 
 <div class="product-popup" id="prod-form-LT">
 <div class="form-container" style="overflow-x:auto; align:center">
@@ -409,7 +401,7 @@ $prices = getPrice();
         <th>Price</th>
         <th>Delete?</th>
         <th>Purchase</th>
-      <tr> 
+      <tr>
         <button type="submit" class="btn btn-secondary" onclick="sortProducts()"> Sort </button></tr>
         <button type="submit" class="btn btn-danger" onclick="closeProducts()"> Close </button></tr>
       </tr>
@@ -433,24 +425,24 @@ $prices = getPrice();
           <?php echo $task['description']; ?>
         </td>
         <td>
-          <?php 
+          <?php
               echo $task['price'];
             ?>
         </td>
         <td>
           <form action="home.php" method="post">
-            <input type="submit" value="Delete" name="action" class="btn btn-danger" />             
-            <input type="hidden" name="item_id" value="<?php echo $task['item_id'] ?>" />
-          </form> 
-        </td>                        
-        <td>
-          <form action="transaction.php" method="post">
-            <input type="submit" value="Purchase" name="action" class="btn btn-primary" />      
+            <input type="submit" value="Delete" name="action" class="btn btn-danger" />
             <input type="hidden" name="item_id" value="<?php echo $task['item_id'] ?>" />
           </form>
-        </td>                                
+        </td>
+        <td>
+          <form action="transaction.php" method="post">
+            <input type="submit" value="Purchase" name="action" class="btn btn-primary" />
+            <input type="hidden" name="item_id" value="<?php echo $task['item_id'] ?>" />
+          </form>
+        </td>
       </tr>
-      
+
       <?php endforeach; ?>
     </table>
     </div>
@@ -469,7 +461,7 @@ $prices = getPrice();
         <th>Price</th>
         <th>Delete?</th>
         <th>Purchase</th>
-      <tr> 
+      <tr>
         <button type="submit" class="btn btn-secondary" onclick="sortProducts()"> Sort </button></tr>
         <button type="submit" class="btn btn-danger" onclick="closeProducts()"> Close </button></tr>
       </tr>
@@ -493,24 +485,24 @@ $prices = getPrice();
           <?php echo $task['description']; ?>
         </td>
         <td>
-          <?php 
+          <?php
               echo $task['price'];
             ?>
         </td>
         <td>
           <form action="home.php" method="post">
-            <input type="submit" value="Delete" name="action" class="btn btn-danger" />             
-            <input type="hidden" name="item_id" value="<?php echo $task['item_id'] ?>" />
-          </form> 
-        </td>                        
-        <td>
-          <form action="transaction.php" method="post">
-            <input type="submit" value="Purchase" name="action" class="btn btn-primary" />      
+            <input type="submit" value="Delete" name="action" class="btn btn-danger" />
             <input type="hidden" name="item_id" value="<?php echo $task['item_id'] ?>" />
           </form>
-        </td>                                
+        </td>
+        <td>
+          <form action="transaction.php" method="post">
+            <input type="submit" value="Purchase" name="action" class="btn btn-primary" />
+            <input type="hidden" name="item_id" value="<?php echo $task['item_id'] ?>" />
+          </form>
+        </td>
       </tr>
-      
+
       <?php endforeach; ?>
     </table>
     </div>
@@ -529,7 +521,7 @@ $prices = getPrice();
         <th>Price</th>
         <th>Delete?</th>
         <th>Purchase</th>
-      <tr> 
+      <tr>
         <button type="submit" class="btn btn-secondary" onclick="sortProducts()"> Sort </button></tr>
         <button type="submit" class="btn btn-danger" onclick="closeProducts()"> Close </button></tr>
       </tr>
@@ -553,24 +545,24 @@ $prices = getPrice();
           <?php echo $task['description']; ?>
         </td>
         <td>
-          <?php 
+          <?php
               echo $task['price'];
             ?>
         </td>
         <td>
           <form action="home.php" method="post">
-            <input type="submit" value="Delete" name="action" class="btn btn-danger" />             
-            <input type="hidden" name="item_id" value="<?php echo $task['item_id'] ?>" />
-          </form> 
-        </td>                        
-        <td>
-          <form action="transaction.php" method="post">
-            <input type="submit" value="Purchase" name="action" class="btn btn-primary" />      
+            <input type="submit" value="Delete" name="action" class="btn btn-danger" />
             <input type="hidden" name="item_id" value="<?php echo $task['item_id'] ?>" />
           </form>
-        </td>                                
+        </td>
+        <td>
+          <form action="transaction.php" method="post">
+            <input type="submit" value="Purchase" name="action" class="btn btn-primary" />
+            <input type="hidden" name="item_id" value="<?php echo $task['item_id'] ?>" />
+          </form>
+        </td>
       </tr>
-      
+
       <?php endforeach; ?>
     </table>
     </div>
@@ -589,7 +581,7 @@ $prices = getPrice();
         <th>Price</th>
         <th>Delete?</th>
         <th>Purchase</th>
-      <tr> 
+      <tr>
         <button type="submit" class="btn btn-secondary" onclick="sortProducts()"> Sort </button></tr>
         <button type="submit" class="btn btn-danger" onclick="closeProducts()"> Close </button></tr>
       </tr>
@@ -613,24 +605,24 @@ $prices = getPrice();
           <?php echo $task['description']; ?>
         </td>
         <td>
-          <?php 
+          <?php
               echo $task['price'];
             ?>
         </td>
         <td>
           <form action="home.php" method="post">
-            <input type="submit" value="Delete" name="action" class="btn btn-danger" />             
-            <input type="hidden" name="item_id" value="<?php echo $task['item_id'] ?>" />
-          </form> 
-        </td>                        
-        <td>
-          <form action="transaction.php" method="post">
-            <input type="submit" value="Purchase" name="action" class="btn btn-primary" />      
+            <input type="submit" value="Delete" name="action" class="btn btn-danger" />
             <input type="hidden" name="item_id" value="<?php echo $task['item_id'] ?>" />
           </form>
-        </td>                                
+        </td>
+        <td>
+          <form action="transaction.php" method="post">
+            <input type="submit" value="Purchase" name="action" class="btn btn-primary" />
+            <input type="hidden" name="item_id" value="<?php echo $task['item_id'] ?>" />
+          </form>
+        </td>
       </tr>
-      
+
       <?php endforeach; ?>
     </table>
     </div>
@@ -648,7 +640,7 @@ $prices = getPrice();
         <th>Price</th>
         <th>Delete?</th>
         <th>Purchase</th>
-      <tr> 
+      <tr>
         <button type="submit" class="btn btn-secondary" onclick="sortProducts()"> Sort </button></tr>
         <button type="submit" class="btn btn-danger" onclick="closeProducts()"> Close </button></tr>
       </tr>
@@ -672,24 +664,24 @@ $prices = getPrice();
           <?php echo $task['description']; ?>
         </td>
         <td>
-          <?php 
+          <?php
               echo $task['price'];
             ?>
         </td>
         <td>
           <form action="home.php" method="post">
-            <input type="submit" value="Delete" name="action" class="btn btn-danger" />             
-            <input type="hidden" name="item_id" value="<?php echo $task['item_id'] ?>" />
-          </form> 
-        </td>                        
-        <td>
-          <form action="transaction.php" method="post">
-            <input type="submit" value="Purchase" name="action" class="btn btn-primary" />      
+            <input type="submit" value="Delete" name="action" class="btn btn-danger" />
             <input type="hidden" name="item_id" value="<?php echo $task['item_id'] ?>" />
           </form>
-        </td>                                
+        </td>
+        <td>
+          <form action="transaction.php" method="post">
+            <input type="submit" value="Purchase" name="action" class="btn btn-primary" />
+            <input type="hidden" name="item_id" value="<?php echo $task['item_id'] ?>" />
+          </form>
+        </td>
       </tr>
-      
+
       <?php endforeach; ?>
     </table>
     </div>
@@ -708,7 +700,7 @@ $prices = getPrice();
         <th>Price</th>
         <th>Delete?</th>
         <th>Purchase</th>
-      <tr> 
+      <tr>
         <button type="submit" class="btn btn-secondary" onclick="sortProducts()"> Sort </button></tr>
         <button type="submit" class="btn btn-danger" onclick="closeProducts()"> Close </button></tr>
       </tr>
@@ -732,42 +724,26 @@ $prices = getPrice();
           <?php echo $task['description']; ?>
         </td>
         <td>
-          <?php 
+          <?php
               echo $task['price'];
             ?>
         </td>
         <td>
           <form action="home.php" method="post">
-            <input type="submit" value="Delete" name="action" class="btn btn-danger" />             
+            <input type="submit" value="Delete" name="action" class="btn btn-danger" />
             <input type="hidden" name="item_id" value="<?php echo $task['item_id'] ?>" />
-          </form> 
-        </td>                        
+          </form>
+        </td>
         <td>
           <form action="transaction.php" method="post">
             <input type="submit" value="Purchase" name="action" class="btn btn-primary" />
             <input type="hidden" name="item_id" value="<?php echo $task['item_id'] ?>" />
           </form>
-        </td>                                
+        </td>
       </tr>
-      
+
       <?php endforeach; ?>
     </table>
     </div>
 </div>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
