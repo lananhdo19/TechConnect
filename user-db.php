@@ -41,7 +41,10 @@ function updateBrand()
 	$brands = $stmt->fetchAll();
     $stmt->closeCursor();
 
-
+    $q2 = "DELETE FROM listing_brand";
+    $stmt = $db->prepare($q2);
+    $stmt->execute();
+    $stmt->closeCursor();
 
     foreach ($brands as $brand):
 		$stmt2 = $db->prepare("INSERT INTO listing_brand VALUES (:b, :c)");
