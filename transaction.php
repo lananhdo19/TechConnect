@@ -1,5 +1,6 @@
 <?php
 require('connectdb.php');
+include('home-db.php');
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -21,6 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $stmt->execute();
 
     $stmt->closeCursor();
+
+    deleteTask($_POST['item_id']);
 
     header("Location: user.php");
 }
