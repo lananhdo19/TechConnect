@@ -4,7 +4,7 @@
 //can also delete a listing from the database
 function add_listing($brand, $item_condition, $type, $description, $price){
     global $db;
-    //collon specifies a "fill in the blank"
+    //colon specifies a "fill in the blank"
     $query = "INSERT INTO listing (brand, item_condition, type, description, price) VALUES (:brand, :item_condition, :type, :description, :price);";
     $statement = $db->prepare($query);
     $statement->bindValue(':brand', $brand);
@@ -14,12 +14,12 @@ function add_listing($brand, $item_condition, $type, $description, $price){
     $statement->bindValue(':price', $price);
     $statement->execute();
     $statement->closeCursor();
-    header("Location: user.php");
+
 }
 function add_list($brand, $item_condition, $type, $description, $price, $username){
     global $db;
-    //collon specifies a "fill in the blank"
-    $query = "INSERT INTO lists (item_id, username) VALUES ((SELECT item_id from listing where brand = :brand AND
+    //colon specifies a "fill in the blank"
+    $query = "INSERT INTO lists (item_id, Username) VALUES ((SELECT item_id from listing where brand = :brand AND
     item_condition = :item_condition AND type = :type AND description = :description AND price = :price), :username);";
     $statement = $db->prepare($query);
     $statement->bindValue(':brand', $brand);
@@ -30,6 +30,5 @@ function add_list($brand, $item_condition, $type, $description, $price, $usernam
     $statement->bindValue(':username', $username);
     $statement->execute();
     $statement->closeCursor();
-    header("Location: user.php");
 }
 ?>

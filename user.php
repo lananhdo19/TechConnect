@@ -29,76 +29,6 @@ if (isset($_SESSION['user'])) {
     require('connectdb.php');
     require('user-db.php');
     global $db;
-    ?>
-
-    <ul class="ulBottomNav">
-        <li class="liBottomNav"><a class="active" href="home.php">Home</a></li>
-        <li class="liBottomNav"><a href="logout.php">Logout</a></li>
-    </ul>
-
-    <!-- Profile Section -->
-    <div class="row">
-        <div class="column left">
-            <img class="profilePic" src="Static/Images/default-user.png" alt="name">
-        </div>
-        <div class="column right">
-            <button type="buttton" id="createListing" data-toggle="modal" data-target="#createListingModal">Add
-                Listing
-            </button>
-
-            <h1 id="username">Hi, <?php echo $_SESSION['user'] ?></h1>
-            <h3><b>Email:</b> <span id="email"><?php echo $_SESSION['email'] ?></span></h3>
-            <h3><b>Payment Stored:</b> <span>
-                    <?php
-                    $query = "SELECT * FROM card_info WHERE User=:user";
-                    $statement = $db->prepare($query);
-                    $statement->bindValue(':user', $_SESSION['user']);
-                    $statement->execute();
-                    $results = $statement->fetchAll();
-                    $statement->closeCursor();
-                    if($results) {
-                        echo substr($results[0]['card_number'], 0, 4) . " " . substr($results[0]['card_number'], 4, 4) . " " . substr($results[0]['card_number'], 8, 4) . " " . substr($results[0]['card_number'], 12, 4) . " (" . $results[0]['type'] . ")";
-                    }
-                    else {
-                        echo "(No payment stored)";
-                    }
-                    ?>
-                </span></h3>
-
-            <button type="buttton" id="editProfile" data-toggle="modal" data-target="#editProfileModal">Edit
-                Information
-            </button>
-        </div>
-    </div>
-
-    <!-- Section -->
-    <div class="tabs">
-        <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#listings">Listings</a></li>
-            <li><a data-toggle="tab" href="#messages">Messages</a></li>
-        </ul>
-    </div>
-    <div class="tab-content">
-        <div id="listings" class="tab-pane fade in active">
-            <h3><strong>All of your current listings</strong></h3>
-            <div>
-                <?php
-                include('viewListings.php');
-                ?>
-            </div>
-        </div>
-        <div id="messages" class="tab-pane fade">
-            <h3><strong>All of your messages</strong></h3>
-            <div>
-                <?php
-                include('viewMessages.php');
-                ?>
-            </div>
-        </div>
-    </div>
-
-
-    <?php
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (!empty($_POST['action']) && $_POST['action'] == 'update') {
 
@@ -173,7 +103,95 @@ if (isset($_SESSION['user'])) {
             header('Location: user.php');
         }
     }
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['action']) && $_POST['action'] == 'add' )
+    {
+        if (!empty($_POST['inputBrand']) && !empty($_POST['inputType']) && !empty($_POST['inputDescription'])&& !empty($_POST['inputCondition'])&& !empty($_POST['inputPrice'])){
+            add_listing($_POST['inputBrand'],$_POST['inputCondition'], $_POST['inputType'], $_POST['inputDescription'], $_POST['inputPrice']);
+            add_list($_POST['inputBrand'],$_POST['inputCondition'], $_POST['inputType'], $_POST['inputDescription'], $_POST['inputPrice'], $_SESSION['user']);
+            header('Location: user.php');
+        }
+
+        else {
+            $msg = "Enter all information to add listing";
+        }
+    }
     ?>
+
+    <ul class="ulBottomNav">
+        <li class="liBottomNav"><a class="active" href="home.php">Home</a></li>
+        <li class="liBottomNav"><a href="logout.php">Logout</a></li>
+    </ul>
+
+    <!-- Profile Section -->
+    <div class="row">
+        <div class="column left">
+            <img class="profilePic" src="Static/Images/default-user.png" alt="name">
+        </div>
+        <div class="column right">
+            <button type="buttton" id="createListing" data-toggle="modal" data-target="#createListingModal">Add
+                Listing
+            </button>
+
+            <h1 id="username">Hi, <?php echo $_SESSION['user'] ?></h1>
+            <h3><b>Email:</b> <span id="email"><?php echo $_SESSION['email'] ?></span></h3>
+            <h3><b>Payment Stored:</b> <span>
+                    <?php
+                    $query = "SELECT * FROM card_info WHERE User=:user";
+                    $statement = $db->prepare($query);
+                    $statement->bindValue(':user', $_SESSION['user']);
+                    $statement->execute();
+                    $results = $statement->fetchAll();
+                    $statement->closeCursor();
+                    if($results) {
+                        echo substr($results[0]['card_number'], 0, 4) . " " . substr($results[0]['card_number'], 4, 4) . " " . substr($results[0]['card_number'], 8, 4) . " " . substr($results[0]['card_number'], 12, 4) . " (" . $results[0]['type'] . ")";
+                    }
+                    else {
+                        echo "(No payment stored)";
+                    }
+                    ?>
+                </span></h3>
+
+            <button type="buttton" id="editProfile" data-toggle="modal" data-target="#editProfileModal">Edit
+                Information
+            </button>
+        </div>
+    </div>
+
+    <!-- Section -->
+    <div class="tabs">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#listings">Listings</a></li>
+            <li><a data-toggle="tab" href="#messages">Messages</a></li>
+            <li><a data-toggle="tab" href="#purchases">Purchases</a></li>
+        </ul>
+    </div>
+    <div class="tab-content">
+        <div id="listings" class="tab-pane fade in active">
+            <h3><strong>All of your current listings</strong></h3>
+            <div>
+                <?php
+                include('viewListings.php');
+                ?>
+            </div>
+        </div>
+        <div id="messages" class="tab-pane fade">
+            <h3><strong>All of your messages</strong></h3>
+            <div>
+                <?php
+                include('viewMessages.php');
+                ?>
+            </div>
+        </div>
+        <div id="purchases" class="tab-pane fade">
+            <h3><strong>All of your purchases</strong></h3>
+            <div>
+                <?php
+                include('viewTransactions.php');
+                ?>
+            </div>
+        </div>
+    </div>
+
     <!-- Edit Profile Modal -->
     <div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -223,19 +241,6 @@ if (isset($_SESSION['user'])) {
         </div>
     </div>
 
-    <?php
-        if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['action']) && $_POST['action'] == 'add' )
-        {
-            if (!empty($_POST['inputBrand']) && !empty($_POST['inputType']) && !empty($_POST['inputDescription'])&& !empty($_POST['inputCondition'])&& !empty($_POST['inputPrice'])){
-                add_listing($_POST['inputBrand'],$_POST['inputCondition'], $_POST['inputType'], $_POST['inputDescription'], $_POST['inputPrice']);
-                add_list($_POST['inputBrand'],$_POST['inputCondition'], $_POST['inputType'], $_POST['inputDescription'], $_POST['inputPrice'], $_SESSION['user']);
-            }
-
-            else {
-                $msg = "Enter all information to add listing";
-            }
-        }
-    ?>
     <!-- Create Listing Entry Modal -->
     <div class="modal fade" id="createListingModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -297,7 +302,7 @@ if (isset($_SESSION['user'])) {
                                 <select id="inputType" name="inputType" class="form-control">
                                     <option selected>Choose...</option>
                                     <option value = "laptop">laptop</option>
-                                    <option value = "headphones">headphones</option>
+                                    <option value = "headphones">headphone</option>
                                     <option value = "tv">tv</option>
                                     <option value = "gaming">gaming</option>
                                     <option value = "tablet">tablet</option>

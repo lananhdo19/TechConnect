@@ -8,7 +8,7 @@
     VALUES ("0001", "", "apple", "good", "tablet, "its a good tablet")";
     */
 
-    $query = "SELECT * FROM profile NATURAL JOIN lists NATURAL JOIN listing WHERE Username=:user";
+    $query = "SELECT * FROM lists NATURAL JOIN listing_type NATURAL JOIN listing WHERE Username=:user";
     $statement = $db->prepare($query);
     $statement->bindValue(':user', $_SESSION['user']);
     $statement->execute();
