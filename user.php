@@ -303,7 +303,7 @@ if (isset($_SESSION['user'])) {
                                 <select id="inputType" name="inputType" class="form-control">
                                     <option selected>Choose...</option>
                                     <option value = "laptop">laptop</option>
-                                    <option value = "headphones">headphone</option>
+                                    <option value = "headphone">headphone</option>
                                     <option value = "tv">tv</option>
                                     <option value = "gaming">gaming</option>
                                     <option value = "tablet">tablet</option>
