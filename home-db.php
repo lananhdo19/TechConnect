@@ -140,23 +140,28 @@ function create_table()
 function updateBrand()
 {
 	global $db;
-	$stmt = $db-> prepare("SELECT COUNT(Brand) as c, Brand FROM listing GROUP BY Brand");
-	
-	//$count = $stmt->fetch()[0];
+	$q = "SELECT COUNT(Brand) as c, Brand FROM listing GROUP BY Brand";
+	$stmt = $db->prepare($q);
+	$stmt->execute();
 	$brands = $stmt->fetchAll();
+    $stmt->closeCursor();
 
+    $q2 = "DELETE FROM listing_brand";
+    $stmt = $db->prepare($q2);
+    $stmt->execute();
+    $stmt->closeCursor();
 
-	foreach ($brands as $brand): 
-		$stmt2 = $db->prepare("DELETE from listing_brand WHERE brand=$brand[Brand]");
+    foreach ($brands as $brand):
+		$stmt2 = $db->prepare("INSERT INTO listing_brand VALUES (:b, :c)");
+	    $stmt2->bindValue(":b", $brand['Brand']);
+	    $stmt2->bindValue(":c", $brand['c']);
 		$stmt2->execute();
-		$stmt = $db->prepare("Insert into listing_brand VALUES ('". $brand[c] . "' , '$brand[Brand]')");
-		$stmt->execute();
+		$stmt2->closeCursor();
         
     endforeach;
 
 	
 	
 	
-	$stmt->closeCursor();
 }
 ?>
