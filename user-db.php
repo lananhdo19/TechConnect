@@ -31,4 +31,27 @@ function add_list($brand, $item_condition, $type, $description, $price, $usernam
     $statement->execute();
     $statement->closeCursor();
 }
+
+function updateBrand()
+{
+	global $db;
+	$stmt = $db-> prepare("SELECT COUNT(Brand) as c, Brand FROM listing GROUP BY Brand");
+	
+	//$count = $stmt->fetch()[0];
+	$brands = $stmt->fetchAll();
+
+
+	foreach ($brands as $brand): 
+		$stmt2 = $db->prepare("DELETE from listing_brand WHERE brand=$brand[Brand]");
+		$stmt2->execute();
+		$stmt = $db->prepare("Insert into listing_brand VALUES ('". $brand[c] . "' , '$brand[Brand]')");
+		$stmt->execute();
+        
+    endforeach;
+
+	
+	
+	
+    $stmt->closeCursor();
+}
 ?>
