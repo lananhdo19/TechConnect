@@ -252,6 +252,7 @@ if (!empty($_POST['action']))
    {
       if (!empty($_POST['item_id']) )
          deleteTask($_POST['item_id']);
+         updateBrand();
    }
 
 }
