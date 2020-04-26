@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 25, 2020 at 11:44 PM
+-- Generation Time: Apr 26, 2020 at 02:39 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -78,7 +78,7 @@ CREATE TABLE `listing` (
 --
 
 INSERT INTO `listing` (`item_id`, `brand`, `item_condition`, `type`, `description`, `price`) VALUES
-(2, 'bose', 'good', 'headphones', 'Noise-cancelling, over the ear headphones', 85),
+(2, 'bose', 'good', 'headphone', 'Noise-cancelling, over the ear headphones', 85),
 (3, 'samsung', 'fair', 'tv', 'Used for two years, fair condition, black, 40 inch', 150),
 (4, 'apple', 'good', 'tablet', 'ipad mini, 7.9 inch retina display', 300);
 
@@ -104,6 +104,18 @@ CREATE TABLE `listing_type` (
   `image` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `listing_type`
+--
+
+INSERT INTO `listing_type` (`type`, `image`) VALUES
+('desktop', 'desktops.jpg'),
+('gaming', 'gaming.jpg'),
+('headphone', 'headphones.jpg'),
+('laptop', 'laptops.jpg'),
+('tablet', 'tablets.jpg'),
+('tv', 'tv.jpg');
+
 -- --------------------------------------------------------
 
 --
@@ -123,7 +135,14 @@ INSERT INTO `lists` (`item_id`, `Username`) VALUES
 (1, 'jc4rn'),
 (2, 'ld9hu'),
 (3, 'zh2yn'),
-(4, 'hew5fz');
+(4, 'hew5fz'),
+(6, 'ld9hu'),
+(7, 'ld9hu'),
+(8, 'ld9hu'),
+(9, 'ld9hu'),
+(10, 'ld9hu'),
+(11, 'ld9hu'),
+(12, 'ld9hu');
 
 -- --------------------------------------------------------
 
@@ -183,16 +202,10 @@ CREATE TABLE `profile` (
 --
 
 INSERT INTO `profile` (`Username`, `email`) VALUES
-('ass', 'ass@sdfad.adsfa'),
-('assss', 'assss@sdfad.adsfa'),
-('fdfa', 'fdfa@dfg.vgd'),
 ('hew5fz', 'hew5fz@virginia.edu'),
 ('james', 'james@smith.gom'),
 ('jc4rn', 'jc4rn@virginia.edu'),
-('ld9hsdfsfu', 'ld9hsdfsfu@virginia.edu'),
-('ld9hsxcxcxcxdfsfu', 'ld9hsxcxcxcxdfsfu@virginia.edu'),
 ('ld9hu', 'ld9hu@virginia.edu'),
-('ldaaa9hu', 'ldaaa9hu@virginia.edu'),
 ('zh2yn', 'zh2yn@virginia.edu');
 
 -- --------------------------------------------------------
@@ -220,7 +233,7 @@ INSERT INTO `transaction` (`transaction_id`, `item_id`, `date`, `card_number`) V
 (34, 3, '2020-04-25 23:37:40', '1224522892212222'),
 (35, 3, '2020-04-25 23:38:00', '1224522892212222'),
 (36, 3, '2020-04-25 23:38:35', '1224522892212222'),
-(37, 2, '2020-04-25 23:39:56', '1224522892212222');
+(37, 4, '2020-04-25 23:39:56', '1224522892212222');
 
 -- --------------------------------------------------------
 
@@ -238,19 +251,10 @@ CREATE TABLE `user_pass` (
 --
 
 INSERT INTO `user_pass` (`email`, `password`) VALUES
-('ass@sdfad.adsfa', '$2y$10$SLbt3Zca7KuUCiW.YgjDse.AsuRLszn6nkiQTXRmG9fY2NzfAV3nK'),
-('assss@sdfad.adsfa', '$2y$10$zGu41c/i79KZ4gtKrAWJiutJHEzHTuHfXhnN01wOdix3SagbIktem'),
-('dsfsafd@g.sd', '$2y$10$IIncV2e9D92ojTb12VUkzeHsaC/2n1m9MiD8Sn5tJ5drc7eDuxPe2'),
-('fdfa@dfg.vgd', '$2y$10$4QpBbKo/hwLQqQQa4FLhpe/MZqJT8ISOdIqEtnOcFoPnqRD15vnIO'),
 ('hew5fz@virginia.edu', '$2y$10$IIncV2e9D92ojTb12VUkzeHsaC/2n1m9MiD8Sn5tJ5drc7eDuxPe2'),
 ('james@smith.gom', '$2y$10$/JUonBRZUxoYLuvq5o1r8.vinVWhOLj82nnKsC2IlsCe/318FudDS'),
 ('jc4rn@virginia.edu', '$2y$10$IIncV2e9D92ojTb12VUkzeHsaC/2n1m9MiD8Sn5tJ5drc7eDuxPe2'),
-('ld9hsdfsfu@virginia.edu', '$2y$10$lgOKco3KomxnlkHIqcmAfu/uutKI3XV2XQ/gjwIPhif..F97W2/GS'),
-('ld9hsxcxcxcxdfsfu@virginia.edu', '$2y$10$2iJpiAq4NWx1ZwTDVfKdge44rt1LQHksNolhKsB6lcYWR2LnJR2Ja'),
 ('ld9hu@virginia.edu', '$2y$10$XC0apkiVlkx2XUN9v9EXL.edI.oE8hM78veLjcYckaIqm722Rnw4.'),
-('ld9hu@virginia.edus', '$2y$10$ayUQOfig1NUDE8GlQROCMOrVu5rkEh8wbzXvCEXbsEbdiKtTuO7eS'),
-('ld9hu@virginia.efffdus', '$2y$10$HMdE6OSXK8ZEIuT3xvCnn.PlSGw7Z/9riWdNdFcOmarhcN.bOdDVS'),
-('ldaaa9hu@virginia.edu', '$2y$10$aYMQ1IpGgyF9PNstyxO3o.yFiy48SFzxDej8qCs9sGA1HO7RZ2c7S'),
 ('zh2yn@virginia.edu', '$2y$10$IIncV2e9D92ojTb12VUkzeHsaC/2n1m9MiD8Sn5tJ5drc7eDuxPe2');
 
 --
@@ -328,7 +332,7 @@ ALTER TABLE `user_pass`
 -- AUTO_INCREMENT for table `listing`
 --
 ALTER TABLE `listing`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `transaction`
