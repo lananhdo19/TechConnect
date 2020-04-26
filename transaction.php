@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     $stmt->closeCursor();
 
-    deleteTask($_POST['item_id']);
+   // deleteTask($_POST['item_id']);
 
     header("Location: user.php");
 }
